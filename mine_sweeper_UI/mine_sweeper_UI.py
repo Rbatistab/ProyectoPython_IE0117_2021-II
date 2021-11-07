@@ -1,3 +1,120 @@
+#!/usr/bin/python3
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+
+
+class Ui_Dimensions(object):
+    def setupUi(self, MainWindow):
+        self.n = 1
+        self.m = 1
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(619, 233)
+        sizePolicy = QtWidgets.QSizePolicy(
+                                           QtWidgets.QSizePolicy.Preferred,
+                                           QtWidgets.QSizePolicy.Preferred
+                                           )
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(
+                                    MainWindow.sizePolicy().hasHeightForWidth()
+                                    )
+        MainWindow.setSizePolicy(sizePolicy)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.centralwidget.setFont(font)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.Cantidad_de_columnas_spin = QtWidgets.QSpinBox(self.centralwidget)
+        self.Cantidad_de_columnas_spin.setMinimum(1)
+        self.Cantidad_de_columnas_spin.setObjectName(
+                                                    "Cantidad_de_columnas_spin"
+                                                    )
+        self.gridLayout.addWidget(self.Cantidad_de_columnas_spin, 1, 1, 1, 1)
+        self.Cantidad_de_filas_spin = QtWidgets.QSpinBox(self.centralwidget)
+        self.Cantidad_de_filas_spin.setMinimum(1)
+        self.Cantidad_de_filas_spin.setObjectName("Cantidad_de_filas_spin")
+        self.gridLayout.addWidget(self.Cantidad_de_filas_spin, 1, 0, 1, 1)
+        self.Cantidad_Filas_label = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.Cantidad_Filas_label.setFont(font)
+        self.Cantidad_Filas_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.Cantidad_Filas_label.setObjectName("Cantidad_Filas_label")
+        self.gridLayout.addWidget(self.Cantidad_Filas_label, 0, 0, 1, 1)
+        self.Cantidad_columnas_label = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.Cantidad_columnas_label.setFont(font)
+        self.Cantidad_columnas_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.Cantidad_columnas_label.setObjectName("Cantidad_columnas_label")
+        self.gridLayout.addWidget(self.Cantidad_columnas_label, 0, 1, 1, 1)
+        self.verticalLayout_2.addLayout(self.gridLayout)
+        spacerItem = QtWidgets.QSpacerItem(
+                                           20,
+                                           40,
+                                           QtWidgets.QSizePolicy.Minimum,
+                                           QtWidgets.QSizePolicy.Expanding
+                                           )
+        self.verticalLayout_2.addItem(spacerItem)
+        self.OK_Button = QtWidgets.QPushButton(self.centralwidget)
+        self.OK_Button.setObjectName("OK_Button")
+        self.OK_Button.clicked.connect(self.ok_clicked)
+        self.verticalLayout_2.addWidget(self.OK_Button)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 619, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate(
+                                            "MainWindow",
+                                            "Dimensiones"
+                                            )
+                                  )
+        self.Cantidad_Filas_label.setText(_translate(
+                                                    "MainWindow",
+                                                    "Cantidad de filas"
+                                                    )
+                                          )
+        self.Cantidad_columnas_label.setText(_translate(
+                                                        "MainWindow",
+                                                        "Cantidad de columnas"
+                                                        )
+                                             )
+        self.OK_Button.setText(_translate("MainWindow", "OK"))
+
+    def ok_clicked(self):
+        self.n = self.Cantidad_de_filas_spin.value()
+        self.m = self.Cantidad_de_columnas_spin.value()
+        Dimensions_Window.close()
+
+
+def dim_window():
+    app = QtWidgets.QApplication(sys.argv)
+    Dimensions_Window = QtWidgets.QMainWindow()
+    dimensions_window = Ui_Dimensions()
+    dimensions_window.setupUi(Dimensions_Window)
+    Dimensions_Window.show()
+    app.exec_()
+    n = dimensions_window.n
+    m = dimensions_window.m
+
+    return n, m
+
+
 class Menus():  # estos metodos deberian estar en una clase?
 
     def dim_window():
@@ -29,7 +146,7 @@ class Menus():  # estos metodos deberian estar en una clase?
         mines = self.mine_quantity_window(self)
         print(mines)
 
-        return n, m, mines 
+        return n, m, mines
 
 
 
