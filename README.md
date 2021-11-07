@@ -5,7 +5,8 @@ Proyecto # 1(Python) IE-0117 Buscaminas
 Ver tambien, [lluvia de ideas](https://docs.google.com/spreadsheets/d/1ExaA3SSjnD2yHSH6oEkQ7PLAEW0kYarp5tVv0T_rSxA/edit#gid=0)
 
 ### mine_sweeper_controller.py -> Controlador consume al UI, logica de mas alto nivel
-* Iniciar el juego
+* Solicitar informacion para el juego
+* Iniciar el juego con informacion del paso anterior
 * Jugar
 * cerrar
 
