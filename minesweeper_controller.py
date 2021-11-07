@@ -22,23 +22,27 @@ class Reset_Variables:
 def exec():
     # n, m, mines = dimensions_mines() # UI le pregunta al usuario por la dimension de las minas?
     print("Pedir dimensiones al usuario")
+    from mine_sweeper_UI import mine_sweeper_UI as ui
 
-    while(not full_reset):
-        # game, boolean = initialize_game()
-        print("inicializamos juego")
+    board = ui.Board
+    board.create_board()
+    raise TerminateMineSweeper
+    # while(not full_reset):
+    #     # game, boolean = initialize_game()
+    #     print("inicializamos juego")
 
 
-        while(not soft_reset and not full_reset):
-            # playing(game, boolean) #Lo hace el UI
-            print("jugando")
+    #     while(not soft_reset and not full_reset):
+    #         # playing(game, boolean) #Lo hace el UI
+    #         print("jugando")
 
-            if win:
-                print("Muestro puntajes")
-                # show_win(game) #Lo hace el UI
-                # highscore() #Lo hace el UI
-            elif loose:
-                print("Muestro puntajes perdida")
-                # show_loose(game) #Lo hace el UI
+    #         if win:
+    #             print("Muestro puntajes")
+    #             # show_win(game) #Lo hace el UI
+    #             # highscore() #Lo hace el UI
+    #         elif loose:
+    #             print("Muestro puntajes perdida")
+    #             # show_loose(game) #Lo hace el UI
 
 
 def main():

@@ -40,3 +40,4 @@ class Box:
         self.m = m
         self.content = ''
         self.state = ''
+        

@@ -1,3 +1,10 @@
+class Board:
+  def create_board():
+    print("board")
+
+
+
+
 def playing(game, boolean):
     # A window of the game is refreshed
     refresh_window(game)
@@ -58,4 +65,3 @@ def initialize_game(n, m, mines):
 # * 1 0
 # 1 2 *
 # 0 0 *
-
