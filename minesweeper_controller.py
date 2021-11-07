@@ -6,6 +6,11 @@ from mine_sweeper_UI import mine_sweeper_UI as UI
 class TerminateMineSweeper(Exception):
     pass
 
+# Necesitamos un exception para el reset:
+# El manejo del programa se hace desde el controlador, este consume el UI, pero cuando un usuario toca un boton de reset
+# el boton lo toca en el UI y este no tiene acceso al controlador. Para hacer un reset (full o soft) necesitamos una 
+# exception que ordene el reset
+
 def terminate_mine_sweeper():
     # mensage de UI para el usuario de que se esta cerrando el programa
     print("Finalizando ejecution en terminate_mine_sweeper()") # Delete this line when we are done
@@ -22,8 +27,17 @@ class Reset_Variables: # Necistamos crear objetos de esta clase aqui?
 
 
 def exec():
-    # n, m, mines = dimensions_msines() # UI le pregunta al usuario por la dimension de las minas?
-    print("Pedir dimensiones al usuario")
+    '''
+    Executions gets the desired game information form the user and 
+    '''
+    # Decomentar esta linea en la version final
+    # rows, columns, mines = UI.Menus.dimensions_mines()
+    
+    # Linea de testing:
+    rows, columns, mines = UI.Menus.dimensions_mines_mockup()
+    print("rows: ",rows)
+    print("cols: ",columns)
+    print("mines: ",mines)
 
     while(not full_reset):
         # game, boolean = initialize_game()
