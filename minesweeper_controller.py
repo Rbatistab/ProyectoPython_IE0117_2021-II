@@ -1,16 +1,18 @@
 #!/usr/bin/python3
 
 import sys
+from mine_sweeper_UI import mine_sweeper_UI as UI
 
 class TerminateMineSweeper(Exception):
     pass
 
 def terminate_mine_sweeper():
     # mensage de UI para el usuario de que se esta cerrando el programa
+    print("Finalizando ejecution en terminate_mine_sweeper()") # Delete this line when we are done
     sys.exit()
 
 
-class Reset_Variables:
+class Reset_Variables: # Necistamos crear objetos de esta clase aqui?
     '''
     This class contain boolean variables regarding the reset and closing state
     '''
@@ -20,29 +22,27 @@ class Reset_Variables:
 
 
 def exec():
-    # n, m, mines = dimensions_mines() # UI le pregunta al usuario por la dimension de las minas?
+    # n, m, mines = dimensions_msines() # UI le pregunta al usuario por la dimension de las minas?
     print("Pedir dimensiones al usuario")
-    from mine_sweeper_UI import mine_sweeper_UI as ui
 
-    board = ui.Board
-    board.create_board()
-    raise TerminateMineSweeper
-    # while(not full_reset):
-    #     # game, boolean = initialize_game()
-    #     print("inicializamos juego")
+    while(not full_reset):
+        # game, boolean = initialize_game()
+        print("inicializamos juego")
+        # playing(game, boolean) #Lo hace el UI
+        print("jugando")
+        print("Mostrando puntajes")
+        raise TerminateMineSweeper
 
 
-    #     while(not soft_reset and not full_reset):
-    #         # playing(game, boolean) #Lo hace el UI
-    #         print("jugando")
-
-    #         if win:
-    #             print("Muestro puntajes")
-    #             # show_win(game) #Lo hace el UI
-    #             # highscore() #Lo hace el UI
-    #         elif loose:
-    #             print("Muestro puntajes perdida")
-    #             # show_loose(game) #Lo hace el UI
+        # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop?
+        # while(not soft_reset and not full_reset):
+        #     if win:
+        #         print("Muestro puntajes")
+        #         # show_win(game) #Lo hace el UI
+        #         # highscore() #Lo hace el UI
+        #     elif loose:
+        #         print("Muestro puntajes perdida")
+        #         # show_loose(game) #Lo hace el UI
 
 
 def main():
@@ -54,31 +54,10 @@ def main():
 
 
 if __name__ == '__main__':
-    close = False
     full_reset = False
     soft_reset = False
+    # En que parte queremos a usar estas variables?:
     win = False
     loose = False
 
     main()
-
-# Archivo 1 -> consume al archivo 2  DONE!
-# Logica de altisimo nivel
-# Iniciar el juego
-# Jugar
-# cerrar
-
-# Archivo 2 -> consume al archivo 3
-# logica UI (segundo alto nivel):
-# preguntar dimensiones
-# preguntar minas
-# Pintar matriz
-# Permitir jugar
-# Mostrar iconitos
-# permitir reiniciar
-# Permitir salir
-
-# Archivo 3
-# Logica de bajo nivel - backend
-# Crear Matriz
-# Distribuir minas
