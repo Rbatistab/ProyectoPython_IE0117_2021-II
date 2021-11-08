@@ -115,6 +115,77 @@ def dim_window():
     return n, m
 
 
+class Ui_Mines(object):
+    def setupUi(self, MainWindow, max_mines):
+        self.mines = 0
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(619, 233)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.Cantidad_Minas_label = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.Cantidad_Minas_label.setFont(font)
+        self.Cantidad_Minas_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.Cantidad_Minas_label.setObjectName("Cantidad_Minas_label")
+        self.verticalLayout.addWidget(self.Cantidad_Minas_label)
+        self.Cantidad_de_minas_spin = QtWidgets.QSpinBox(self.centralwidget)
+        self.Cantidad_de_minas_spin.setMinimum(1)
+        self.Cantidad_de_minas_spin.setMaximum(max_mines - 1)
+        self.Cantidad_de_minas_spin.setObjectName("Cantidad_de_minas_spin")
+        self.verticalLayout.addWidget(self.Cantidad_de_minas_spin)
+        spacerItem = QtWidgets.QSpacerItem(
+                                           20,
+                                           40,
+                                           QtWidgets.QSizePolicy.Minimum,
+                                           QtWidgets.QSizePolicy.Expanding
+                                           )
+        self.verticalLayout.addItem(spacerItem)
+        self.OK_Button = QtWidgets.QPushButton(self.centralwidget)
+        self.OK_Button.setObjectName("OK_Button")
+        self.verticalLayout.addWidget(self.OK_Button)
+        self.OK_Button.clicked.connect(lambda: self.ok_clicked(MainWindow))
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 619, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Minas"))
+        self.Cantidad_Minas_label.setText(_translate(
+                                                    "MainWindow",
+                                                    "Cantidad de minas"
+                                                    )
+                                          )
+        self.OK_Button.setText(_translate("MainWindow", "OK"))
+
+    def ok_clicked(self, MainWindow):
+        self.mines = self.Cantidad_de_minas_spin.value()
+        MainWindow.close()
+
+
+def mine_window(max_mines):
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_Mines()
+    ui.setupUi(MainWindow, max_mines)
+    MainWindow.show()
+    app.exec_()
+    mines = ui.mines
+
+    return mines
+
+
 class Menus():  # estos metodos deberian estar en una clase?
 
     def dim_window():
