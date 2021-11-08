@@ -34,10 +34,12 @@ class Ui_Dimensions(object):
         self.Cantidad_de_columnas_spin.setObjectName(
                                                     "Cantidad_de_columnas_spin"
                                                     )
+        self.Cantidad_de_columnas_spin.setMaximum(30)
         self.gridLayout.addWidget(self.Cantidad_de_columnas_spin, 1, 1, 1, 1)
         self.Cantidad_de_filas_spin = QtWidgets.QSpinBox(self.centralwidget)
         self.Cantidad_de_filas_spin.setMinimum(1)
         self.Cantidad_de_filas_spin.setObjectName("Cantidad_de_filas_spin")
+        self.Cantidad_de_filas_spin.setMaximum(16)
         self.gridLayout.addWidget(self.Cantidad_de_filas_spin, 1, 0, 1, 1)
         self.Cantidad_Filas_label = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
