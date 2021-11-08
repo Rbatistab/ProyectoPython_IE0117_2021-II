@@ -114,7 +114,7 @@ class Ui_Mines(object):
         self.verticalLayout.addWidget(self.Cantidad_Minas_label)
         self.Cantidad_de_minas_spin = QtWidgets.QSpinBox(self.centralwidget)
         self.Cantidad_de_minas_spin.setMinimum(1)
-        self.Cantidad_de_minas_spin.setMaximum(max_mines - 1)
+        self.Cantidad_de_minas_spin.setMaximum(max_mines)
         self.Cantidad_de_minas_spin.setObjectName("Cantidad_de_minas_spin")
         self.verticalLayout.addWidget(self.Cantidad_de_minas_spin)
         spacerItem = QtWidgets.QSpacerItem(
