@@ -63,7 +63,7 @@ class Ui_Dimensions(object):
         self.verticalLayout_2.addItem(spacerItem)
         self.OK_Button = QtWidgets.QPushButton(self.centralwidget)
         self.OK_Button.setObjectName("OK_Button")
-        self.OK_Button.clicked.connect(self.ok_clicked)
+        self.OK_Button.clicked.connect(lambda: self.ok_clicked(MainWindow))
         self.verticalLayout_2.addWidget(self.OK_Button)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -96,21 +96,21 @@ class Ui_Dimensions(object):
                                              )
         self.OK_Button.setText(_translate("MainWindow", "OK"))
 
-    def ok_clicked(self):
+    def ok_clicked(self, MainWindow):
         self.n = self.Cantidad_de_filas_spin.value()
         self.m = self.Cantidad_de_columnas_spin.value()
-        Dimensions_Window.close()
+        MainWindow.close()
 
 
 def dim_window():
     app = QtWidgets.QApplication(sys.argv)
-    Dimensions_Window = QtWidgets.QMainWindow()
-    dimensions_window = Ui_Dimensions()
-    dimensions_window.setupUi(Dimensions_Window)
-    Dimensions_Window.show()
+    Main_Dimensions_Window = QtWidgets.QMainWindow()
+    Dimensions_Window = Ui_Dimensions()
+    Dimensions_Window.setupUi(Main_Dimensions_Window)
+    Main_Dimensions_Window.show()
     app.exec_()
-    n = dimensions_window.n
-    m = dimensions_window.m
+    n = Dimensions_Window.n
+    m = Dimensions_Window.m
 
     return n, m
 
