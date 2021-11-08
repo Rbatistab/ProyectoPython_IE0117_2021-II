@@ -68,35 +68,11 @@ class Ui_Dimensions(object):
         self.OK_Button.clicked.connect(lambda: self.ok_clicked(MainWindow))
         self.verticalLayout_2.addWidget(self.OK_Button)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 619, 22))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
+        MainWindow.setWindowTitle("Dimensiones")
+        self.Cantidad_Filas_label.setText("Cantidad de filas")
+        self.Cantidad_columnas_label.setText("Cantidad de columnas")
+        self.OK_Button.setText("OK")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate(
-                                            "MainWindow",
-                                            "Dimensiones"
-                                            )
-                                  )
-        self.Cantidad_Filas_label.setText(_translate(
-                                                    "MainWindow",
-                                                    "Cantidad de filas"
-                                                    )
-                                          )
-        self.Cantidad_columnas_label.setText(_translate(
-                                                        "MainWindow",
-                                                        "Cantidad de columnas"
-                                                        )
-                                             )
-        self.OK_Button.setText(_translate("MainWindow", "OK"))
 
     def ok_clicked(self, MainWindow):
         self.n = self.Cantidad_de_filas_spin.value()
@@ -153,26 +129,13 @@ class Ui_Mines(object):
         self.verticalLayout.addWidget(self.OK_Button)
         self.OK_Button.clicked.connect(lambda: self.ok_clicked(MainWindow))
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 619, 22))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
+        MainWindow.setWindowTitle("Minas")
+        self.Cantidad_Minas_label.setText("Cantidad de minas")
+        self.OK_Button.setText("OK")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Minas"))
-        self.Cantidad_Minas_label.setText(_translate(
-                                                    "MainWindow",
-                                                    "Cantidad de minas"
-                                                    )
-                                          )
-        self.OK_Button.setText(_translate("MainWindow", "OK"))
 
     def ok_clicked(self, MainWindow):
         self.mines = self.Cantidad_de_minas_spin.value()
@@ -214,10 +177,6 @@ class Ui_Game(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.toolBar = QtWidgets.QToolBar(MainWindow)
-        self.toolBar.setObjectName("toolBar")
-        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
-        MainWindow.insertToolBarBreak(self.toolBar)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 653, 27))
         font = QtGui.QFont()
@@ -234,26 +193,12 @@ class Ui_Game(object):
         self.menuReinicio.addAction(self.actionReinicio_suave)
         self.menuReinicio.addAction(self.actionReinicio_fuerte)
         self.menubar.addAction(self.menuReinicio.menuAction())
-
-        self.retranslateUi(MainWindow)
+        MainWindow.setWindowTitle("Buscaminas")
+        self.checkBox.setText("Colocar bandera")
+        self.menuReinicio.setTitle("Reinicio")
+        self.actionReinicio_suave.setText("Reinicio suave")
+        self.actionReinicio_fuerte.setText("Reinicio fuerte")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Buscaminas"))
-        self.checkBox.setText(_translate("MainWindow", "Colocar bandera"))
-        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
-        self.menuReinicio.setTitle(_translate("MainWindow", "Reinicio"))
-        self.actionReinicio_suave.setText(_translate(
-                                                     "MainWindow",
-                                                     "Reinicio suave"
-                                                     )
-                                          )
-        self.actionReinicio_fuerte.setText(_translate(
-                                                      "MainWindow",
-                                                      "Reinicio fuerte"
-                                                      )
-                                           )
 
     def button_grid(self, n, m):
         self.matrix = matrix_creation(n, m)
