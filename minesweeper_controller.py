@@ -1,15 +1,8 @@
 #!/usr/bin/python3
 
 import sys
+from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
 from mine_sweeper_UI import mine_sweeper_UI as UI
-
-class TerminateMineSweeper(Exception):
-    pass
-
-# Necesitamos un exception para el reset:
-# El manejo del programa se hace desde el controlador, este consume el UI, pero cuando un usuario toca un boton de reset
-# el boton lo toca en el UI y este no tiene acceso al controlador. Para hacer un reset (full o soft) necesitamos una 
-# exception que ordene el reset
 
 def terminate_mine_sweeper():
     # mensage de UI para el usuario de que se esta cerrando el programa
@@ -26,15 +19,16 @@ class Reset_Variables: # Necistamos crear objetos de esta clase aqui?
         self.soft_reset = False
 
 
-def exec():
+def exec(): 
     '''
     Executions gets the desired game information form the user and 
     '''
-    # Decomentar esta linea en la version final
+    # Descomentar esta linea en la version final
     # rows, columns, mines = UI.Menus.dimensions_mines()
     
     # Linea de testing:
-    rows, columns, mines = UI.Menus.dimensions_mines_mockup()
+    # rows, columns, mines = UI.Menus.dimensions_mines_mockup()
+    rows, columns, mines = UI.dimensions_mines()
     print("rows: ",rows)
     print("cols: ",columns)
     print("mines: ",mines)
@@ -45,7 +39,7 @@ def exec():
         # playing(game, boolean) #Lo hace el UI
         print("jugando")
         print("Mostrando puntajes")
-        raise TerminateMineSweeper
+        raise ms_exceptions.TerminateMineSweeper
 
 
         # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop?
@@ -63,7 +57,7 @@ def main():
     try:
         while(True):
             exec()
-    except TerminateMineSweeper:
+    except ms_exceptions.TerminateMineSweeper:
         terminate_mine_sweeper()
 
 
