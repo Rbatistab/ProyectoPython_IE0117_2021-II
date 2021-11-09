@@ -22,3 +22,13 @@ Ver tambien, [lluvia de ideas](https://docs.google.com/spreadsheets/d/1ExaA3SSjn
 ### mine_swepper_backend, logica de juego
 * Crear Matriz
 * Distribuir minas
+
+
+### Ultimo avance funcional del proyecto final:
+Correr:
+```
+$ python3 minesweeper_controller.py 
+```
+
+
+Se puede ver el menu que solicita las dimensiones del buscaminas y luego se imprimen en la consola
