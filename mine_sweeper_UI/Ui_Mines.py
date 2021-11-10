@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+
 class Ui_Mines(object):
     def setupUi(self, MainWindow, max_mines):
         self.mines = 0

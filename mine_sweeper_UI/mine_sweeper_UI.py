@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+# from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from mine_sweeper_UI.Ui_Dimensions import Ui_Dimensions
 from mine_sweeper_UI.Ui_Mines import Ui_Mines
 from mine_sweeper_UI.Ui_Game import Ui_Game
+# from mine_sweeper_backend.mine_sweeper_backend import matrix_creation
 import sys
 
 
@@ -23,6 +25,7 @@ def dim_window():
     m = Dimensions_Window.m
 
     return n, m
+
 
 def mine_window(max_mines):
     '''
@@ -52,22 +55,6 @@ def game_window(n, m):
     app.exec_()
 
 
-def matrix_creation(n, m):
-    '''
-    Creates and return nxm matrix
-    '''
-    matrix = []
-
-    for _ in range(n):
-        matrix.append([])
-
-    for a in range(n):
-        for _ in range(m):
-            matrix[a].append([])
-
-    return matrix
-
-
 # ----------------------- Mock ups to delete-----------------------------------
 def dimensions_mines():
     # A window is presented that asks for dimensions, then, those dimensions
@@ -75,14 +62,13 @@ def dimensions_mines():
     # n and m are saved
     n, m = dim_window()
 
+    max_mines = n*m
     # A window is presented that asks for mine quantity, which is validated, if
     # there's an error this window asks again. The mine quantity is saved
-    mines = mine_quantity_window()
+    mines = mine_window(max_mines)
     print(mines)
 
     return n, m, mines
-
-
 
 
 # ----------------------- Mock ups to delete-----------------------------------
@@ -93,15 +79,12 @@ def mine_quantity_window():
     return 4
 
 
-
-
-
 class Board:  # Will we need this class?
-  def create_board():
-    print("board")
+    def create_board():
+        print("board")
 
 
-class PlayGame: # Do we need this logic as a class?
+class PlayGame:  # Do we need this logic as a class?
     def playing(game, boolean):
         # A window of the game is refreshed
         refresh_window(game)
@@ -113,14 +96,13 @@ class PlayGame: # Do we need this logic as a class?
         game.refresh_boxes_right()
 
         # When close button is clicked
-        boolean.close = True # aqui va el terminate exception
+        boolean.close = True  # aqui va el terminate exception
 
         # When soft reset button is clicked
         boolean.soft_reset = True
 
         # When full reset button is clicked
         boolean.full_reset = True
-
 
     def initialize_game(n, m, mines):
         # A Game class object is created. The atribute game_matrix is an array

@@ -1,11 +1,10 @@
-class mine_sweeper_backend:
-
-
-  def dim_window():
+# class mine_sweeper_backend:
+def dim_window():
     print("dimensioning window")
     # logica de crear una ventana en el backend
 
-  def matrix_creation(n, m):
+
+def matrix_creation(n, m):
     matrix = []
 
     for _ in range(n):
@@ -40,4 +39,3 @@ class Box:
         self.m = m
         self.content = ''
         self.state = ''
-        

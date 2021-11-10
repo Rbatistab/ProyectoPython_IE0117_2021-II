@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+
+
 class Ui_Game(object):
     def __init__(self):
-        self.icon_blank = "imgs/blank.png"
-
+        self.icon_blank = "mine_sweeper_UI/imgs/blank.png"
 
     def setupUi(self, MainWindow, n, m):
         MainWindow.setObjectName("MainWindow")
@@ -69,3 +71,16 @@ class Ui_Game(object):
                 self.matrix[a][b].setIcon(icon)
                 self.matrix[a][b].setIconSize(QtCore.QSize(38, 38))
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
+
+
+def matrix_creation(n, m):
+    matrix = []
+
+    for _ in range(n):
+        matrix.append([])
+
+    for a in range(n):
+        for _ in range(m):
+            matrix[a].append([])
+
+    return matrix
