@@ -5,7 +5,19 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Game(object):
     def __init__(self):
+        self.icon_0 = "mine_sweeper_UI/imgs/0.jpg"
+        self.icon_1 = "mine_sweeper_UI/imgs/1.jpg"
+        self.icon_2 = "mine_sweeper_UI/imgs/2.jpg"
+        self.icon_3 = "mine_sweeper_UI/imgs/3.jpg"
+        self.icon_4 = "mine_sweeper_UI/imgs/4.jpg"
+        self.icon_5 = "mine_sweeper_UI/imgs/5.jpg"
+        self.icon_6 = "mine_sweeper_UI/imgs/6.jpg"
+        self.icon_7 = "mine_sweeper_UI/imgs/7.jpg"
+        self.icon_8 = "mine_sweeper_UI/imgs/8.jpg"
         self.icon_blank = "mine_sweeper_UI/imgs/blank.png"
+        self.icon_flag = "mine_sweeper_UI/imgs/flag.png"
+        self.icon_mine = "mine_sweeper_UI/imgs/mine.png"
+        self.icon_question = "mine_sweeper_UI/imgs/question.png"
 
     def setupUi(self, MainWindow, n, m):
         MainWindow.setObjectName("MainWindow")
