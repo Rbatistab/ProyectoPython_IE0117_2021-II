@@ -30,5 +30,11 @@ Correr:
 $ python3 minesweeper_controller.py 
 ```
 
+### Testings:
 
-Se puede ver el menu que solicita las dimensiones del buscaminas y luego se imprimen en la consola
+* Clases de Casilla (BoxClasses):
+
+`````sh
+$ ptyhon sandbox/BoxTesting.py 
+`````
+
