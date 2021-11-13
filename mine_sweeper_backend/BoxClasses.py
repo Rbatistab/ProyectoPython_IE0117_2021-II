@@ -1,6 +1,6 @@
 class BoxClass:
     '''
-    General box class to represent a square box un the 
+    General box class to represent a square box un the
     minesweeper
     '''
     def __init__(self, flag_state="no_flag_state"):
@@ -27,7 +27,7 @@ class BoxClass:
         Clicks the box
         '''
         self.was_clicked = True
-    
+
 
 class MineBox(BoxClass):
     '''
@@ -35,15 +35,15 @@ class MineBox(BoxClass):
     '''
     pass
 
+
 class NumberBox(BoxClass):
     '''
     Represents a box with no Mine, but a number
     '''
 
-    def __init__(self, number = -1):
+    def __init__(self, number=-1):
         BoxClass.__init__(self)
         self.number = number
-
 
     def get_box_attributes(self):
         '''
