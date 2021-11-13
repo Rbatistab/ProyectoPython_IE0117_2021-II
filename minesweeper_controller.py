@@ -20,6 +20,17 @@ class Reset_Variables:  # Necistamos crear objetos de esta clase aqui?
         self.soft_reset = False
 
 
+def add_highscores(name, highscore):
+    highscores_location = "highcores.txt"
+    names_location = "highcores_names.txt"
+    file = open(names_location, "a")
+    file.write("{}\n".format(name))
+    file.close()
+    file = open(highscores_location, "a")
+    file.write("{}\n".format(highscore))
+    file.close()
+
+
 def exec():
     '''
     Executions gets the desired game information form the user and
@@ -40,7 +51,13 @@ def exec():
         # playing(game, boolean) #Lo hace el UI
         print("jugando")
         UI.game_window(rows, columns)
-        print("Mostrando puntajes")
+        win = True
+        if(win):
+            name = UI.add_highscores_window()
+            highscore = input("Puntaje: ")
+            add_highscores(name, highscore)
+            print("Mostrando puntajes")
+            UI.show_highscores_window()
         raise ms_exceptions.TerminateMineSweeper
 
         # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop?

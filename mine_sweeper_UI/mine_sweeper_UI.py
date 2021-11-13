@@ -5,8 +5,8 @@ from PyQt5 import QtWidgets
 from mine_sweeper_UI.Ui_Dimensions import Ui_Dimensions
 from mine_sweeper_UI.Ui_Mines import Ui_Mines
 from mine_sweeper_UI.Ui_Game import Ui_Game
-from mine_sweeper_UI.Ui_Game import Ui_Show_Highscores
-from mine_sweeper_UI.Ui_Game import Ui_Add_Highscores
+from mine_sweeper_UI.Ui_Show_Highscores import Ui_Show_Highscores
+from mine_sweeper_UI.Ui_Add_Highscores import Ui_Add_Highscores
 # from mine_sweeper_backend.mine_sweeper_backend import matrix_creation
 import sys
 
@@ -69,18 +69,21 @@ def show_highscores_window():
     app.exec_()
 
 
-def add_highscores_window(new_highscore):
+def add_highscores_window():
     '''
     Raises the main game window with the mine sweeper
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_Add_Highscores()
-    ui.setupUi(MainWindow, new_highscore)
+    ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
+    name = ui.name
 
-# ----------------------- Mock ups to delete-----------------------------------
+    return name
+
+
 def dimensions_mines():
     # A window is presented that asks for dimensions, then, those dimensions
     # are validated. If there's an error the window asks again. The dimensions
