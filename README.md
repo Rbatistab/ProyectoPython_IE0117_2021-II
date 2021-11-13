@@ -38,3 +38,9 @@ $ python3 minesweeper_controller.py
 $ ptyhon sandbox/BoxTesting.py 
 `````
 
+* Matriz (Genera matriz general):
+
+`````sh
+$ ptyhon sandbox/MatrixTesting.py   
+`````
+
