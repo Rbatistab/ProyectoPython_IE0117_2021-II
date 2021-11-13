@@ -91,9 +91,7 @@ class Ui_Game(object):
         self.menubar.addAction(self.menuReinicio.menuAction())
         self.menubar.addAction(self.menuPuntajes.menuAction())
         MainWindow.setWindowTitle("Buscaminas")
-        self.Bandera_signo_pregunta.setText(
-                                            "Agregar bandera/signo de pregunta"
-                                           )
+        self.Bandera_signo_pregunta.setText("Etiquetar casilla oculta")
         self.Label_Minas.setText("Minas")
         self.Label_Tiempo.setText("Tiempo")
         self.menuReinicio.setTitle("Reinicio")

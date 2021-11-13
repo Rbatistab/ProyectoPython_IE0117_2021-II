@@ -5,6 +5,8 @@ from PyQt5 import QtWidgets
 from mine_sweeper_UI.Ui_Dimensions import Ui_Dimensions
 from mine_sweeper_UI.Ui_Mines import Ui_Mines
 from mine_sweeper_UI.Ui_Game import Ui_Game
+from mine_sweeper_UI.Ui_Game import Ui_Show_Highscores
+from mine_sweeper_UI.Ui_Game import Ui_Add_Highscores
 # from mine_sweeper_backend.mine_sweeper_backend import matrix_creation
 import sys
 
@@ -54,6 +56,29 @@ def game_window(n, m):
     MainWindow.show()
     app.exec_()
 
+
+def show_highscores_window():
+    '''
+    Raises a window showing the highscore's table
+    '''
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_Show_Highscores()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+
+
+def add_highscores_window(new_highscore):
+    '''
+    Raises the main game window with the mine sweeper
+    '''
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_Add_Highscores()
+    ui.setupUi(MainWindow, new_highscore)
+    MainWindow.show()
+    app.exec_()
 
 # ----------------------- Mock ups to delete-----------------------------------
 def dimensions_mines():
