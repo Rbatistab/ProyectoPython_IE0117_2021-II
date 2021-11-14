@@ -32,7 +32,7 @@ class Ui_Game(object):
         self.flag_number = 0
         self.click_number = 0
 
-    def setupUi(self, MainWindow, n, m, bool):
+    def setupUi(self, MainWindow, n, m, mines, bool):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(674, 458)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -58,6 +58,7 @@ class Ui_Game(object):
         self.verticalLayout_1.addWidget(self.Label_Minas)
         self.lcd_minas = QtWidgets.QLCDNumber(self.centralwidget)
         self.lcd_minas.setObjectName("lcd_minas")
+        self.lcd_minas.display(mines - self.flag_number)
         self.verticalLayout_1.addWidget(self.lcd_minas)
         self.horizontalLayout.addLayout(self.verticalLayout_1)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
@@ -78,7 +79,7 @@ class Ui_Game(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.button_grid(n, m, MainWindow)
+        self.button_grid(n, m, mines, MainWindow)
         self.verticalLayout.addLayout(self.gridLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -132,7 +133,7 @@ class Ui_Game(object):
         self.actionVer_puntajes.setText("Ver puntajes")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def button_grid(self, n, m, MainWindow):
+    def button_grid(self, n, m, mines, MainWindow):
         self.matrix = matrix_creation(n, m)
         icon = QtGui.QIcon()
         icon.addPixmap(
@@ -154,10 +155,10 @@ class Ui_Game(object):
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
                 # print(a, b)
                 self.matrix[a][b].clicked.connect(
-                    lambda: self.button_click(MainWindow)
+                    lambda: self.button_click(MainWindow, mines)
                     )
 
-    def button_click(self, MainWindow):
+    def button_click(self, MainWindow, mines):
         if(not self.first_click):
             print("first")
             self.timer.start(1000)
@@ -165,9 +166,13 @@ class Ui_Game(object):
 
         if(self.Bandera_signo_pregunta.isChecked()):
             print("Check")
+        else:
+            self.click_number = self.click_number + 1
+            print(self.click_number)
 
         rbt = MainWindow.sender()
         print(rbt.position)
+        self.lcd_minas.display(mines - self.flag_number)
 
     def LCDEvent(self):
         self.s += 1

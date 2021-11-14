@@ -56,14 +56,14 @@ def mine_window(max_mines):
     return mines
 
 
-def game_window(n, m, bool):
+def game_window(n, m, mines, bool):
     '''
     Raises the main game window with the mine sweeper
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = GameMainWindow(bool)
     ui = Ui_Game()
-    ui.setupUi(MainWindow, n, m, bool)
+    ui.setupUi(MainWindow, n, m, mines, bool)
     MainWindow.show()
     app.exec_()
 

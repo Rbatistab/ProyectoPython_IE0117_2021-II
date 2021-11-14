@@ -52,7 +52,7 @@ def exec():
         print("inicializamos juego")
         # playing(game, boolean) #Lo hace el UI
         print("jugando")
-        UI.game_window(rows, columns, bool)
+        UI.game_window(rows, columns, mines, bool)
 
 
 def main():
