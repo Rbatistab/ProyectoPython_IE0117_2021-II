@@ -1,11 +1,10 @@
 class GeneralMatrix:
-    def __init__(self, rows, cols, desired_object = object):
+    def __init__(self, rows, cols, desired_object=object):
         '''
         This class returns a matrix with dimentions rows x cols filled
         with the desired object
         '''
         self.matrix = self.matrix_creation(rows, cols, desired_object)
-
 
     def matrix_creation(self, n, m, desired_object):
         '''
@@ -17,10 +16,9 @@ class GeneralMatrix:
 
         for a in range(n):
             for _ in range(m):
-                matrix[a].append( desired_object )
+                matrix[a].append(desired_object)
 
         return matrix
-
 
     def set_element_value(self, row, col, value):
         '''
@@ -28,13 +26,11 @@ class GeneralMatrix:
         '''
         self.matrix[row][col] = value
 
-
     def get_element(self, row, col):
         '''
         Gets a single element in the matrix
         '''
         return self.matrix[row][col]
-
 
     def get_matrix_dimensions(self):
         '''
@@ -42,27 +38,25 @@ class GeneralMatrix:
         '''
         rows = len(self.matrix)
         cols = len(self.matrix[0])
-        return (rows,cols)
-
+        return (rows, cols)
 
     def get_adjacent_elements(self, row, col):
         '''
         Returns a list with the neighbor elements for an element
-        in a given coordinate 
+        in a given coordinate
         '''
         adjacent_elements = []
         for rw in range(row - 1, row + 2):
-            if rw < 0: 
+            if rw < 0:
                 continue
-            for cl in range(col -1, col + 2):
-                if not (cl < 0 or (cl == col and rw == row)): 
+            for cl in range(col - 1, col + 2):
+                if not (cl < 0 or (cl == col and rw == row)):
                     try:
                         element = self.matrix[rw][cl]
                         adjacent_elements.append(element)
                     except IndexError:
                         pass
         return adjacent_elements
-
 
     def __str__(self):
         '''
@@ -72,7 +66,7 @@ class GeneralMatrix:
         for rows in self.matrix:
             for element in rows:
                 matrix_string += str(element) + " "
-            
+
             matrix_string += "\n"
         return matrix_string
 
@@ -81,7 +75,7 @@ class GeneralMatrix:
         Matrix iterator
         '''
         return GeneralMatrixIterator(self)
-        
+
 
 class GeneralMatrixIterator:
     '''
@@ -98,6 +92,6 @@ class GeneralMatrixIterator:
         '''
         if self._index < self.row_size:
             return_row = self._matrix[self._index]
-            self._index += 1 
+            self._index += 1
             return return_row
         raise StopIteration
