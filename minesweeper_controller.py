@@ -20,15 +20,15 @@ class Reset_Variables:  # Necistamos crear objetos de esta clase aqui?
         self.soft_reset = False
 
 
-def add_highscores(name, highscore):
-    highscores_location = "highcores.txt"
-    names_location = "highcores_names.txt"
-    file = open(names_location, "a")
-    file.write("{}\n".format(name))
-    file.close()
-    file = open(highscores_location, "a")
-    file.write("{}\n".format(highscore))
-    file.close()
+# def add_highscores(name, highscore):
+#     highscores_location = "highcores.txt"
+#     names_location = "highcores_names.txt"
+#     file = open(names_location, "a")
+#     file.write("{}\n".format(name))
+#     file.close()
+#     file = open(highscores_location, "a")
+#     file.write("{}\n".format(highscore))
+#     file.close()
 
 
 def exec():
@@ -45,30 +45,14 @@ def exec():
     print("cols: ", columns)
     print("mines: ", mines)
 
-    while(not full_reset):
+    bool = Reset_Variables()
+
+    while(not bool.full_reset):
         # game, boolean = initialize_game()
         print("inicializamos juego")
         # playing(game, boolean) #Lo hace el UI
         print("jugando")
-        UI.game_window(rows, columns)
-        win = True
-        if(win):
-            name = UI.add_highscores_window()
-            highscore = input("Puntaje: ")
-            add_highscores(name, highscore)
-            print("Mostrando puntajes")
-            UI.show_highscores_window()
-        raise ms_exceptions.TerminateMineSweeper
-
-        # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop?
-        # while(not soft_reset and not full_reset):
-        #     if win:
-        #         print("Muestro puntajes")
-        #         # show_win(game) #Lo hace el UI
-        #         # highscore() #Lo hace el UI
-        #     elif loose:
-        #         print("Muestro puntajes perdida")
-        #         # show_loose(game) #Lo hace el UI
+        UI.game_window(rows, columns, bool)
 
 
 def main():
@@ -80,10 +64,32 @@ def main():
 
 
 if __name__ == '__main__':
-    full_reset = False
-    soft_reset = False
+    # full_reset = False
+    # soft_reset = False
     # En que parte queremos a usar estas variables?:
-    win = False
-    loose = False
+    # win = False
+    # loose = False
 
     main()
+
+# ----------------------- Mock ups to delete-----------------------------------
+
+        # win = True
+        # if(win):
+        #     name = UI.add_highscores_window()
+        #     highscore = input("Puntaje: ")
+        #     add_highscores(name, highscore)
+        #     print("Mostrando puntajes")
+        #     UI.show_highscores_window()
+        #     pass
+        # raise ms_exceptions.TerminateMineSweeper
+        #
+        # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop?
+        # while(not soft_reset and not full_reset):
+        #     if win:
+        #         print("Muestro puntajes")
+        #         # show_win(game) #Lo hace el UI
+        #         # highscore() #Lo hace el UI
+        #     elif loose:
+        #         print("Muestro puntajes perdida")
+        #         # show_loose(game) #Lo hace el UI

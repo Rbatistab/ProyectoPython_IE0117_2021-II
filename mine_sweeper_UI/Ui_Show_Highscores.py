@@ -1,14 +1,12 @@
-#!/usr/bin/python3
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Show_Highscores(object):
+class Show_highscores_dialog(object):
     def __init__(self):
         self.highscores_location = "highcores.txt"
         self.names_location = "highcores_names.txt"
 
-    def setupUi(self, MainWindow):
+    def setupUi(self, Dialog):
         file = open(self.highscores_location, "r")
         highcores_values = file.read().splitlines()
         file.close()
@@ -32,43 +30,27 @@ class Ui_Show_Highscores(object):
                                               highcores_values[sort_index]
                                              )
 
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(685, 526)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(685, 526)
+        self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser = QtWidgets.QTextBrowser(Dialog)
         font = QtGui.QFont()
         font.setPointSize(14)
         self.textBrowser.setFont(font)
         self.textBrowser.setObjectName("textBrowser")
         self.textBrowser.setText(text)
         self.verticalLayout.addWidget(self.textBrowser)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton = QtWidgets.QPushButton(Dialog)
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout.addWidget(self.pushButton)
-        self.pushButton.clicked.connect(lambda: self.ok_clicked(MainWindow))
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 685, 22))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-        MainWindow.setWindowTitle("Puntajes")
+        self.pushButton.clicked.connect(lambda: self.ok_clicked(Dialog))
+        Dialog.setWindowTitle("Puntajes")
         self.pushButton.setText("OK")
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-    def ok_clicked(self, MainWindow):
-        MainWindow.close()
-
-    def takeSecond(elem):
-        '''
-        Gives the second element
-        '''
-        return elem[1]
+    def ok_clicked(self, Dialog):
+        Dialog.close()

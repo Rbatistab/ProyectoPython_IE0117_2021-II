@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+# from mine_sweeper_UI import mine_sweeper_UI as UI
+from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog
+from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog
 
 
 class Ui_Game(object):
@@ -19,7 +22,7 @@ class Ui_Game(object):
         self.icon_mine = "mine_sweeper_UI/imgs/mine.png"
         self.icon_question = "mine_sweeper_UI/imgs/question.png"
 
-    def setupUi(self, MainWindow, n, m):
+    def setupUi(self, MainWindow, n, m, bool):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(674, 458)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -86,8 +89,23 @@ class Ui_Game(object):
         self.actionVer_puntajes = QtWidgets.QAction(MainWindow)
         self.actionVer_puntajes.setObjectName("actionVer_puntajes")
         self.menuReinicio.addAction(self.actionReinicio_suave)
+        self.actionReinicio_suave.triggered.connect(
+                                                    lambda:
+                                                    self.soft_reset(
+                                                                    MainWindow,
+                                                                    bool
+                                                                   )
+                                                   )
         self.menuReinicio.addAction(self.actionReinicio_fuerte)
+        self.actionReinicio_fuerte.triggered.connect(
+                                                     lambda:
+                                                     self.hard_reset(
+                                                                    MainWindow,
+                                                                    bool
+                                                                    )
+                                                    )
         self.menuPuntajes.addAction(self.actionVer_puntajes)
+        self.actionVer_puntajes.triggered.connect(self.show_highscores_window)
         self.menubar.addAction(self.menuReinicio.menuAction())
         self.menubar.addAction(self.menuPuntajes.menuAction())
         MainWindow.setWindowTitle("Buscaminas")
@@ -119,6 +137,42 @@ class Ui_Game(object):
                 self.matrix[a][b].setIcon(icon)
                 self.matrix[a][b].setIconSize(QtCore.QSize(38, 38))
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
+
+    def show_highscores_window(self):
+        Dialog = QtWidgets.QDialog()
+        ui = Show_highscores_dialog()
+        ui.setupUi(Dialog)
+        Dialog.show()
+
+    def add_highscores_window(self):
+        Dialog = QtWidgets.QDialog()
+        ui = Add_highscores_dialog()
+        ui.setupUi(Dialog)
+        Dialog.exec_()
+        name = ui.name
+
+        return name
+
+    def highcore_add_show(self):
+        name = self.add_highscores_window()
+        highscore = 0.1
+        highscores_location = "highcores.txt"
+        names_location = "highcores_names.txt"
+        file = open(names_location, "a")
+        file.write("{}\n".format(name))
+        file.close()
+        file = open(highscores_location, "a")
+        file.write("{}\n".format(highscore))
+        file.close()
+        self.show_highscores_window()
+
+    def soft_reset(self, MainWindow, bool):
+        bool.soft_reset = True
+        MainWindow.close()
+
+    def hard_reset(self, MainWindow, bool):
+        bool.full_reset = True
+        MainWindow.close()
 
 
 def matrix_creation(n, m):

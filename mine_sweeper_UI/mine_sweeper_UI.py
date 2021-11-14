@@ -1,14 +1,25 @@
 #!/usr/bin/python3
 
 # from PyQt5 import QtCore, QtGui, QtWidgets
+from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
 from PyQt5 import QtWidgets
 from mine_sweeper_UI.Ui_Dimensions import Ui_Dimensions
 from mine_sweeper_UI.Ui_Mines import Ui_Mines
 from mine_sweeper_UI.Ui_Game import Ui_Game
-from mine_sweeper_UI.Ui_Show_Highscores import Ui_Show_Highscores
-from mine_sweeper_UI.Ui_Add_Highscores import Ui_Add_Highscores
+# from mine_sweeper_UI.Ui_Show_Highscores import Ui_Show_Highscores
+# from mine_sweeper_UI.Ui_Add_Highscores import Ui_Add_Highscores
 # from mine_sweeper_backend.mine_sweeper_backend import matrix_creation
 import sys
+
+
+class GameMainWindow(QtWidgets.QMainWindow):
+    def __init__(self, bool):
+        super(GameMainWindow, self).__init__()
+        self.bool = bool
+
+    def closeEvent(self, event):
+        if(not self.bool.soft_reset and not self.bool.full_reset):
+            raise ms_exceptions.TerminateMineSweeper
 
 
 # ------------------------- Windows ------------------------------------------
@@ -45,18 +56,36 @@ def mine_window(max_mines):
     return mines
 
 
-def game_window(n, m):
+def game_window(n, m, bool):
     '''
     Raises the main game window with the mine sweeper
     '''
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
+    MainWindow = GameMainWindow(bool)
     ui = Ui_Game()
-    ui.setupUi(MainWindow, n, m)
+    ui.setupUi(MainWindow, n, m, bool)
     MainWindow.show()
     app.exec_()
 
+    return
 
+
+def dimensions_mines():
+    # A window is presented that asks for dimensions, then, those dimensions
+    # are validated. If there's an error the window asks again. The dimensions
+    # n and m are saved
+    n, m = dim_window()
+
+    max_mines = n*m
+    # A window is presented that asks for mine quantity, which is validated, if
+    # there's an error this window asks again. The mine quantity is saved
+    mines = mine_window(max_mines)
+    print(mines)
+
+    return n, m, mines
+
+
+# ----------------------- Mock ups to delete-----------------------------------
 def show_highscores_window():
     '''
     Raises a window showing the highscore's table
@@ -83,23 +112,6 @@ def add_highscores_window():
 
     return name
 
-
-def dimensions_mines():
-    # A window is presented that asks for dimensions, then, those dimensions
-    # are validated. If there's an error the window asks again. The dimensions
-    # n and m are saved
-    n, m = dim_window()
-
-    max_mines = n*m
-    # A window is presented that asks for mine quantity, which is validated, if
-    # there's an error this window asks again. The mine quantity is saved
-    mines = mine_window(max_mines)
-    print(mines)
-
-    return n, m, mines
-
-
-# ----------------------- Mock ups to delete-----------------------------------
 def mine_quantity_window():
     # Linea real, descomentar cuando este lista:
     # return n, m
