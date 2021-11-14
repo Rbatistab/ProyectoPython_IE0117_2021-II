@@ -134,14 +134,45 @@ class Ui_Game(object):
         self.actionVer_puntajes.setText("Ver puntajes")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def button_grid(self, n, m, mines, MainWindow):
-        self.matrix = matrix_creation(n, m)
+    def icon(self, option):
         icon = QtGui.QIcon()
+        if(option == "0"):
+            location = self.icon_0
+        elif(option == "1"):
+            location = self.icon_1
+        elif(option == "2"):
+            location = self.icon_2
+        elif(option == "3"):
+            location = self.icon_3
+        elif(option == "4"):
+            location = self.icon_4
+        elif(option == "5"):
+            location = self.icon_5
+        elif(option == "6"):
+            location = self.icon_6
+        elif(option == "7"):
+            location = self.icon_7
+        elif(option == "8"):
+            location = self.icon_8
+        elif(option == "blank"):
+            location = self.icon_blank
+        elif(option == "flag"):
+            location = self.icon_flag
+        elif(option == "mine"):
+            location = self.icon_mine
+        elif(option == "question"):
+            location = self.icon_question
+
         icon.addPixmap(
-                       QtGui.QPixmap(self.icon_blank),
+                       QtGui.QPixmap(location),
                        QtGui.QIcon.Normal,
                        QtGui.QIcon.Off
                        )
+
+        return icon
+
+    def button_grid(self, n, m, mines, MainWindow):
+        self.matrix = matrix_creation(n, m)
         font = QtGui.QFont()
         font.setPointSize(24)
         for a in range(n):
@@ -151,7 +182,7 @@ class Ui_Game(object):
                 self.matrix[a][b].position = [a, b]
                 # self.matrix[a][b].setFont(font)
                 # self.matrix[a][b].setText("")
-                self.matrix[a][b].setIcon(icon)
+                self.matrix[a][b].setIcon(self.icon("blank"))
                 self.matrix[a][b].setIconSize(QtCore.QSize(38, 38))
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
                 # print(a, b)
@@ -170,7 +201,19 @@ class Ui_Game(object):
             self.first_click = True
 
         if(self.Bandera_signo_pregunta.isChecked()):
-            print(self.back_matrix.matrix[i][j].flag_state)
+            box = self.back_matrix.matrix[i][j]
+            flag_state = box.flag_state
+            if(flag_state == "no_flag_state"):
+                self.flag_number = self.flag_number + 1
+                self.matrix[i][j].setIcon(self.icon("flag"))
+                box.set_flag_state("flag_state")
+            elif(flag_state == "flag_state"):
+                self.flag_number = self.flag_number - 1
+                self.matrix[i][j].setIcon(self.icon("question"))
+                box.set_flag_state("question_state")
+            elif(flag_state == "question_state"):
+                self.matrix[i][j].setIcon(self.icon("blank"))
+                box.set_flag_state("no_flag_state")
         else:
             self.click_number = self.click_number + 1
             print(self.click_number)
