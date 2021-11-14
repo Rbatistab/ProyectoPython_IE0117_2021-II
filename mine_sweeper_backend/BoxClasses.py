@@ -29,11 +29,16 @@ class BoxClass:
         self.was_clicked = True
 
 
+    def __str__(self):
+        pass
+
+
 class MineBox(BoxClass):
     '''
     Represents a box with a Mine
     '''
-    pass
+    def __str__(self):
+        return '*'
 
 
 class NumberBox(BoxClass):
@@ -52,3 +57,6 @@ class NumberBox(BoxClass):
         attributes = super().get_box_attributes()
         attributes['number'] = self.number
         return attributes
+
+    def __str__(self):
+        return str( self.number )

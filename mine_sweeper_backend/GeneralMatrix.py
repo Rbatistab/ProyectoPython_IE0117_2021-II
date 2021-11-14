@@ -1,5 +1,5 @@
 class GeneralMatrix:
-    def __init__(self, rows, cols, desired_object):
+    def __init__(self, rows, cols, desired_object = object):
         '''
         This class returns a matrix with dimentions rows x cols filled
         with the desired object
@@ -27,3 +27,17 @@ class GeneralMatrix:
         Sets a single element in the matrix to a desired value
         '''
         self.matrix[row][col] = value
+
+
+    def __str__(self):
+        '''
+        Returns a String representation of the matrix
+        '''
+        matrix_string = ""
+        for rows in self.matrix:
+            for element in rows:
+                matrix_string += str(element) + " "
+            
+            matrix_string += "\n"
+        return matrix_string
+            

@@ -48,5 +48,12 @@ print("Clicking box:")
 print(my_mine_box.get_box_attributes())
 
 
+# Testing to_string():
+print("\n\nTesting str() in MineBox:")
+print(str(my_mine_box))
+print("\nTesting str() in MineBox:")
+print(str(my_default_number_box))
+
+
 
 

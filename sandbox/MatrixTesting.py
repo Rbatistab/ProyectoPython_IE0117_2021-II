@@ -38,3 +38,8 @@ print_matrix_testing(matrix_test)
 print("\n\nSubstituting 0 in (0,4) for \'x\''")
 general_matrix_object.set_element_value(0,4,'x')
 print_matrix_testing(matrix_test)
+
+
+# Testing string_of:
+print("\n\nTesting \'str()\' method:\n")
+print(str(general_matrix_object))

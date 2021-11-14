@@ -1,41 +1,59 @@
-# class mine_sweeper_backend:
-def dim_window():
-    print("dimensioning window")
-    # logica de crear una ventana en el backend
+#!/usr/bin/python3
+
+import random
+from mine_sweeper_backend.GeneralMatrix import GeneralMatrix as GeneralMatrix
+from mine_sweeper_backend.BoxClasses import MineBox as MineBox
+from mine_sweeper_backend.BoxClasses import NumberBox as NumberBox
 
 
-def matrix_creation(n, m):
-    matrix = []
+def get_game_matrix(rows, cols, mines):
+    game_matrix = get_empty_matrix(rows, cols)
+    sort_mines(mines, rows, cols, game_matrix)
+    # add_numbers_to_matrix(game_matrix)
+    return game_matrix
+    
 
-    for _ in range(n):
-        matrix.append([])
-
-    for a in range(n):
-        for _ in range(m):
-            matrix[a].append([])
-
-    return matrix
-
-
-class Game:
-    '''
-    This class object contains information about the backend of the minesweeper
-    game
-    '''
-    def __init__(self, n, m):
-        game_matrix = matrix_creation(n, m)
-        for a in range(n):
-            for b in range(m):
-                game_matrix[a][b] = Box(a, b)
-        self.game_matrix = game_matrix
+def get_empty_matrix(rows, columns, object_type = object):
+    empty_matrix = GeneralMatrix(rows, columns)
+    return empty_matrix
 
 
-class Box:
-    '''
-    This class objects contain information about a box in the minesweeper game
-    '''
-    def __init__(self, n, m):
-        self.n = n
-        self.m = m
-        self.content = ''
-        self.state = ''
+def sort_mines(mines, rows, cols, matrix):
+    mines_coordinates = get_mines_coordinates(rows, cols, mines)
+    add_mines_to_matrix(mines_coordinates, matrix)
+
+
+def get_mines_coordinates(rows, cols, mines):
+    mines_coordinates = []
+    mines_already_set = 0
+    while mines_already_set < mines:
+        new_mine_coordinate = get_random_coordinate(rows, cols)
+        if coordinate_is_valid(new_mine_coordinate, mines_coordinates):
+            mines_coordinates.append(new_mine_coordinate)
+            mines_already_set += 1
+
+    return mines_coordinates
+
+def get_random_coordinate(row_lim, col_lim):
+    rand_row = random.randint(0, row_lim-1)
+    rand_col = random.randint(0, col_lim-1)
+    return (rand_row, rand_col)
+
+
+def add_mines_to_matrix(mines_coordinates, matrix):
+    for coordinate in mines_coordinates:
+        new_mine = MineBox()
+        row = coordinate[0]
+        col = coordinate[1]
+        matrix.set_element_value(row, col, new_mine)
+
+
+def coordinate_is_valid(new_coordinate, existing_coordinates):
+    if new_coordinate in existing_coordinates:
+        return False
+    return True
+
+
+# def add_numbers_to_matrix(matrix):
+    
+        
