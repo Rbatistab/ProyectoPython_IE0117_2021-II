@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 
+
+
+import sys
+sys.path.append('../ProyectoPython_IE0117_2021-II')
+from mine_sweeper_backend.mine_sweeper_backend import *
+
 # from PyQt5 import QtCore, QtGui, QtWidgets
 from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
 from PyQt5 import QtWidgets
@@ -62,7 +68,16 @@ def game_window(n, m, mines, bool):
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = GameMainWindow(bool)
-    ui = Ui_Game()
+    # create and send BE matrix
+    mines_and_numbers_matrix = get_game_matrix(n, m, mines)
+    
+    # -----------------------------------------
+    # Testing unicamente, borramos este bloque:
+    print("La matriz del juego es:")
+    print(str(mines_and_numbers_matrix))
+    # -----------------------------------------
+
+    ui = Ui_Game(mines_and_numbers_matrix)
     ui.setupUi(MainWindow, n, m, mines, bool)
     MainWindow.show()
     app.exec_()
@@ -111,12 +126,6 @@ def add_highscores_window():
     name = ui.name
 
     return name
-
-def mine_quantity_window():
-    # Linea real, descomentar cuando este lista:
-    # return n, m
-    # Linea de mockup, borrar
-    return 4
 
 
 class Board:  # Will we need this class?

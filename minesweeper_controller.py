@@ -35,16 +35,7 @@ def exec():
     '''
     Executions gets the desired game information form the user and
     '''
-    # Descomentar esta linea en la version final
-    # rows, columns, mines = UI.Menus.dimensions_mines()
-
-    # Linea de testing:
-    # rows, columns, mines = UI.Menus.dimensions_mines_mockup()
     rows, columns, mines = UI.dimensions_mines()
-    print("rows: ", rows)
-    print("cols: ", columns)
-    print("mines: ", mines)
-
     bool = Reset_Variables()
 
     while(not bool.full_reset):

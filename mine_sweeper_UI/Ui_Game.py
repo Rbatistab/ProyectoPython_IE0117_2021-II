@@ -13,7 +13,8 @@ class grid_button(QtWidgets.QPushButton):
 
 
 class Ui_Game(object):
-    def __init__(self):
+    def __init__(self, game_matrix_object):
+        self.matrix = game_matrix_object
         self.icon_0 = "mine_sweeper_UI/imgs/0.jpg"
         self.icon_1 = "mine_sweeper_UI/imgs/1.jpg"
         self.icon_2 = "mine_sweeper_UI/imgs/2.jpg"

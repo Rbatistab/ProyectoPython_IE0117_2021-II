@@ -4,6 +4,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Dimensions(object):
+    '''
+    This class is for a Menu that asks for the dimensions of the board game
+    '''
     def setupUi(self, MainWindow):
         self.n = 1
         self.m = 1

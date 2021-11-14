@@ -48,3 +48,9 @@ print( str(empty_matrix) )
 print("\nTesting \'get_game_matrix:\'")
 game_matrix = get_game_matrix(6, 4, 7)
 print(str(game_matrix))
+
+
+
+print("\nTesting \'get_game_matrix:\'")
+game_matrix = get_game_matrix(9, 9, 60)
+print(str(game_matrix))

@@ -46,7 +46,7 @@ class NumberBox(BoxClass):
     Represents a box with no Mine, but a number
     '''
 
-    def __init__(self, number=-1):
+    def __init__(self, number = -1):
         BoxClass.__init__(self)
         self.number = number
 
