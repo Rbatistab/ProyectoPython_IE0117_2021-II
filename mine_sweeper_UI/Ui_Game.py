@@ -14,7 +14,7 @@ class grid_button(QtWidgets.QPushButton):
 
 class Ui_Game(object):
     def __init__(self, game_matrix_object):
-        self.matrix = game_matrix_object
+        self.back_matrix = game_matrix_object
         self.icon_0 = "mine_sweeper_UI/imgs/0.jpg"
         self.icon_1 = "mine_sweeper_UI/imgs/1.jpg"
         self.icon_2 = "mine_sweeper_UI/imgs/2.jpg"
@@ -160,19 +160,21 @@ class Ui_Game(object):
                     )
 
     def button_click(self, MainWindow, mines):
+        rbt = MainWindow.sender()
+        i = rbt.position[0]
+        j = rbt.position[1]
+
         if(not self.first_click):
             print("first")
             self.timer.start(1000)
             self.first_click = True
 
         if(self.Bandera_signo_pregunta.isChecked()):
-            print("Check")
+            print(self.back_matrix.matrix[i][j].flag_state)
         else:
             self.click_number = self.click_number + 1
             print(self.click_number)
 
-        rbt = MainWindow.sender()
-        print(rbt.position)
         self.lcd_minas.display(mines - self.flag_number)
 
     def LCDEvent(self):
