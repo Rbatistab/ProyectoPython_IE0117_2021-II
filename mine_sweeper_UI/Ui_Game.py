@@ -6,6 +6,12 @@ from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog
 from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog
 
 
+class grid_button(QtWidgets.QPushButton):
+    def __init__(self, *args, **kargs):
+        super(grid_button, self).__init__(*args, **kargs)
+        self.position = [0, 0]
+
+
 class Ui_Game(object):
     def __init__(self):
         self.icon_0 = "mine_sweeper_UI/imgs/0.jpg"
@@ -21,6 +27,10 @@ class Ui_Game(object):
         self.icon_flag = "mine_sweeper_UI/imgs/flag.png"
         self.icon_mine = "mine_sweeper_UI/imgs/mine.png"
         self.icon_question = "mine_sweeper_UI/imgs/question.png"
+
+        self.first_click = False
+        self.flag_number = 0
+        self.click_number = 0
 
     def setupUi(self, MainWindow, n, m, bool):
         MainWindow.setObjectName("MainWindow")
@@ -65,7 +75,7 @@ class Ui_Game(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.button_grid(n, m)
+        self.button_grid(n, m, MainWindow)
         self.verticalLayout.addLayout(self.gridLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -119,7 +129,7 @@ class Ui_Game(object):
         self.actionVer_puntajes.setText("Ver puntajes")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def button_grid(self, n, m):
+    def button_grid(self, n, m, MainWindow):
         self.matrix = matrix_creation(n, m)
         icon = QtGui.QIcon()
         icon.addPixmap(
@@ -131,12 +141,22 @@ class Ui_Game(object):
         font.setPointSize(24)
         for a in range(n):
             for b in range(m):
-                self.matrix[a][b] = QtWidgets.QPushButton(self.centralwidget)
-                self.matrix[a][b].setFont(font)
-                self.matrix[a][b].setText("")
+                self.matrix[a][b] = grid_button(self.centralwidget)
+                self.matrix[a][b].setObjectName("OK_Button{}{}".format(a, b))
+                self.matrix[a][b].position = [a, b]
+                # self.matrix[a][b].setFont(font)
+                # self.matrix[a][b].setText("")
                 self.matrix[a][b].setIcon(icon)
                 self.matrix[a][b].setIconSize(QtCore.QSize(38, 38))
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
+                # print(a, b)
+                self.matrix[a][b].clicked.connect(
+                    lambda: self.button_click(MainWindow)
+                    )
+
+    def button_click(self, MainWindow):
+        rbt = MainWindow.sender()
+        print(rbt.position)
 
     def show_highscores_window(self):
         Dialog = QtWidgets.QDialog()
