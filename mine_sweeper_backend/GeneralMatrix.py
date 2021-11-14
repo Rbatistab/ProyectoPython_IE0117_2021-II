@@ -81,6 +81,7 @@ class GeneralMatrix:
         Matrix iterator
         '''
         return GeneralMatrixIterator(self)
+        
 
 class GeneralMatrixIterator:
     '''

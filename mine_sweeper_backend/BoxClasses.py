@@ -59,4 +59,7 @@ class NumberBox(BoxClass):
         return attributes
 
     def __str__(self):
+        '''
+        Overwrite to the str() method
+        '''
         return str( self.number )
