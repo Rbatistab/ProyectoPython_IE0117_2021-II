@@ -70,6 +70,9 @@ class Ui_Game(object):
         self.verticalLayout_2.addWidget(self.Label_Tiempo)
         self.lcd_tiempo = QtWidgets.QLCDNumber(self.centralwidget)
         self.lcd_tiempo.setObjectName("lcd_tiempo")
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.LCDEvent)
+        self.s = 0
         self.verticalLayout_2.addWidget(self.lcd_tiempo)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -155,8 +158,20 @@ class Ui_Game(object):
                     )
 
     def button_click(self, MainWindow):
+        if(not self.first_click):
+            print("first")
+            self.timer.start(1000)
+            self.first_click = True
+
+        if(self.Bandera_signo_pregunta.isChecked()):
+            print("Check")
+
         rbt = MainWindow.sender()
         print(rbt.position)
+
+    def LCDEvent(self):
+        self.s += 1
+        self.lcd_tiempo.display(self.s)
 
     def show_highscores_window(self):
         Dialog = QtWidgets.QDialog()
