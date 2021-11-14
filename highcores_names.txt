@@ -5,3 +5,5 @@ Felipe
 Diego
 Ana
 Pedro
+Nicole
+Ricardo

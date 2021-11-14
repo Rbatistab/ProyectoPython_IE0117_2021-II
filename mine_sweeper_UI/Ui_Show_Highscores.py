@@ -12,19 +12,16 @@ class Ui_Show_Highscores(object):
         file = open(self.highscores_location, "r")
         highcores_values = file.read().splitlines()
         file.close()
-        print(highcores_values)
         file = open(self.names_location, "r")
         highcores_names = file.read().splitlines()
         file.close()
-        print(highcores_names)
         length = len(highcores_values)
         vector_sort = []
 
         for a in range(length):
-            vector_sort.append([a, int(highcores_values[a])])
+            vector_sort.append([a, float(highcores_values[a])])
 
         vector_sort.sort(key=lambda x: x[1], reverse=True)
-        print(vector_sort)
         text = ""
 
         for a in range(length):
