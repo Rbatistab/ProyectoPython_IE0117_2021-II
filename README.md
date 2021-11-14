@@ -44,3 +44,9 @@ $ ptyhon sandbox/BoxTesting.py
 $ ptyhon sandbox/MatrixTesting.py   
 `````
 
+* Backend (Genera matriz general):
+
+`````sh
+$ ptyhon sandbox/BackendLogicTesting.py
+`````
+

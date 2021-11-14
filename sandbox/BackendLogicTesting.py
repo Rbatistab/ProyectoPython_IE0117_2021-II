@@ -38,10 +38,13 @@ print("\nTesting \'add_mines_to_matrix(): expected 7 mines\'")
 add_mines_to_matrix(random_coord_list, empty_matrix)
 print( str(empty_matrix) )
 
+# add_numbers_to_matrix()
+print("\nTesting \'add_numbers_to_matrix():\'")
+add_numbers_to_matrix(empty_matrix)
+print( str(empty_matrix) )
 
 
 
-
-# print("\nTesting \'get_game_matrix:\'")
-# game_matrix = get_game_matrix(6, 4, 7)
-# print(str(game_matrix))
+print("\nTesting \'get_game_matrix:\'")
+game_matrix = get_game_matrix(6, 4, 7)
+print(str(game_matrix))

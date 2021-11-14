@@ -2,14 +2,14 @@
 
 import random
 from mine_sweeper_backend.GeneralMatrix import GeneralMatrix as GeneralMatrix
-from mine_sweeper_backend.BoxClasses import MineBox as MineBox
+from mine_sweeper_backend.BoxClasses import BoxClass, MineBox as MineBox
 from mine_sweeper_backend.BoxClasses import NumberBox as NumberBox
 
 
 def get_game_matrix(rows, cols, mines):
     game_matrix = get_empty_matrix(rows, cols)
     sort_mines(mines, rows, cols, game_matrix)
-    # add_numbers_to_matrix(game_matrix)
+    add_numbers_to_matrix(game_matrix)
     return game_matrix
     
 
@@ -54,6 +54,23 @@ def coordinate_is_valid(new_coordinate, existing_coordinates):
     return True
 
 
-# def add_numbers_to_matrix(matrix):
-    
+def add_numbers_to_matrix(matrix):
+    for ind_rw, row in enumerate(matrix):
+        for ind_cl, element in enumerate(row):
+            if not (is_mine(element)):
+                current_box_number = get_box_number(ind_rw, ind_cl, matrix)
+                new_box = NumberBox(current_box_number)
+                matrix.set_element_value(ind_rw, ind_cl, new_box)
+
+
+def get_box_number(row, col, matrix):
+    box_number = 0
+    adjacent_boxes = matrix.get_adjacent_elements(row,col)
+    for box in adjacent_boxes:
+        if(is_mine(box)):
+            box_number += 1
+    return box_number
+
+def is_mine(element):
+    return (type(element) == MineBox)
         
