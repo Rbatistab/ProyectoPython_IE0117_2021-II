@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+import sys
+sys.path.append('../ProyectoPython_IE0117_2021-II')
+from mine_sweeper_backend.mine_sweeper_backend import *
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 # from mine_sweeper_UI import mine_sweeper_UI as UI
 from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog
@@ -26,7 +30,7 @@ class Ui_Game(object):
         self.icon_8 = "mine_sweeper_UI/imgs/8.jpg"
         self.icon_blank = "mine_sweeper_UI/imgs/blank.png"
         self.icon_flag = "mine_sweeper_UI/imgs/flag.png"
-        self.icon_mine = "mine_sweeper_UI/imgs/mine.png"
+        self.icon_mine = "mine_sweeper_UI/imgs/mine.jpg"
         self.icon_question = "mine_sweeper_UI/imgs/question.png"
 
         self.first_click = False
@@ -169,6 +173,18 @@ class Ui_Game(object):
                        QtGui.QIcon.Off
                        )
 
+        icon.addPixmap(
+                       QtGui.QPixmap(location),
+                       QtGui.QIcon.Normal,
+                       QtGui.QIcon.On
+                       )
+
+        icon.addPixmap(
+                       QtGui.QPixmap(location),
+                       QtGui.QIcon.Disabled,
+                       QtGui.QIcon.Off
+                       )
+
         return icon
 
     def button_grid(self, n, m, mines, MainWindow):
@@ -187,10 +203,10 @@ class Ui_Game(object):
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
                 # print(a, b)
                 self.matrix[a][b].clicked.connect(
-                    lambda: self.button_click(MainWindow, mines)
+                    lambda: self.button_click(MainWindow, n, m, mines)
                     )
 
-    def button_click(self, MainWindow, mines):
+    def button_click(self, MainWindow, n, m, mines):
         rbt = MainWindow.sender()
         i = rbt.position[0]
         j = rbt.position[1]
@@ -217,6 +233,65 @@ class Ui_Game(object):
         else:
             self.click_number = self.click_number + 1
             print(self.click_number)
+            self.back_matrix.matrix[i][j].click_this_box()
+            self.matrix[i][j].setEnabled(False)
+            number_matrix = matrix_creation(n, m)
+            visible_matrix = matrix_creation(n, m)
+            flag_matrix = matrix_creation(n, m)
+
+            if(is_mine(self.back_matrix.matrix[i][j])):
+                for a in range(n):
+                    for b in range(m):
+                        self.timer.stop()
+                        self.back_matrix.matrix[a][b].click_this_box()
+                        self.matrix[a][b].setEnabled(False)
+
+            for a in range(n):
+                for b in range(m):
+                    box = self.back_matrix.matrix[a][b]
+                    if(is_mine(box)):
+                        number_matrix[a][b] = -1
+                        visible_matrix[a][b] = box.was_clicked
+                        flag_matrix[a][b] = box.flag_state
+                    else:
+                        number_matrix[a][b] = box.number
+                        visible_matrix[a][b] = box.was_clicked
+                        flag_matrix[a][b] = box.flag_state
+
+            # print(number_matrix)
+            # print(visible_matrix)
+            # print(flag_matrix)
+
+            for a in range(n):
+                for b in range(m):
+                    if(visible_matrix[a][b]):
+                        if(number_matrix[a][b] == -1):
+                            self.matrix[a][b].setIcon(self.icon("mine"))
+                        elif(number_matrix[a][b] == 0):
+                            self.matrix[a][b].setIcon(self.icon("0"))
+                        elif(number_matrix[a][b] == 1):
+                            self.matrix[a][b].setIcon(self.icon("1"))
+                        elif(number_matrix[a][b] == 2):
+                            self.matrix[a][b].setIcon(self.icon("2"))
+                        elif(number_matrix[a][b] == 3):
+                            self.matrix[a][b].setIcon(self.icon("3"))
+                        elif(number_matrix[a][b] == 4):
+                            self.matrix[a][b].setIcon(self.icon("4"))
+                        elif(number_matrix[a][b] == 5):
+                            self.matrix[a][b].setIcon(self.icon("5"))
+                        elif(number_matrix[a][b] == 6):
+                            self.matrix[a][b].setIcon(self.icon("6"))
+                        elif(number_matrix[a][b] == 7):
+                            self.matrix[a][b].setIcon(self.icon("7"))
+                        elif(number_matrix[a][b] == 8):
+                            self.matrix[a][b].setIcon(self.icon("8"))
+                    else:
+                        if(flag_matrix[a][b] == "no_flag_state"):
+                            self.matrix[a][b].setIcon(self.icon("blank"))
+                        elif(flag_matrix[a][b] == "flag_state"):
+                            self.matrix[a][b].setIcon(self.icon("flag"))
+                        elif(flag_matrix[a][b] == "question_state"):
+                            self.matrix[a][b].setIcon(self.icon("question"))
 
         self.lcd_minas.display(mines - self.flag_number)
 

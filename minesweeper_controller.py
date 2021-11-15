@@ -39,6 +39,7 @@ def exec():
     bool = Reset_Variables()
 
     while(not bool.full_reset):
+        bool.soft_reset = False
         # game, boolean = initialize_game()
         print("inicializamos juego")
         # playing(game, boolean) #Lo hace el UI
