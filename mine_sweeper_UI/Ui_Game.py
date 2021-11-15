@@ -11,6 +11,8 @@ from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog
 from mine_sweeper_UI.Ui_Win import Win_dialog
 from mine_sweeper_UI.Ui_Lose import Lose_dialog
 from mine_sweeper_UI.Ui_Resets import Resets_dialog
+from mine_sweeper_UI.Ui_Ask_Add_Highscore import Ask_Add_Highscore_dialog
+from mine_sweeper_UI.Ui_Invalid_Name import Invalid_Name_dialog
 
 
 class grid_button(QtWidgets.QPushButton):
@@ -350,20 +352,38 @@ class Ui_Game(object):
         ui.setupUi(Dialog)
         Dialog.exec_()
 
-        name = self.add_highscores_window()
-        highscores_location = "highcores.txt"
-        names_location = "highcores_names.txt"
-        file = open(names_location, "a")
-        file.write("{}\n".format(name))
-        file.close()
-        file = open(highscores_location, "a")
-        file.write("{}\n".format(highscore))
-        file.close()
-
         Dialog = QtWidgets.QDialog()
-        ui = Show_highscores_dialog()
+        ui = Ask_Add_Highscore_dialog()
         ui.setupUi(Dialog)
         Dialog.exec_()
+        add = ui.add
+
+        if(add):
+            invalid_name = True
+            while(invalid_name):
+                name = self.add_highscores_window()
+                name_split = name.splitlines()
+                if(len(name_split) == 1):
+                    invalid_name = False
+                if(invalid_name):
+                    Dialog = QtWidgets.QDialog()
+                    ui = Invalid_Name_dialog()
+                    ui.setupUi(Dialog)
+                    Dialog.exec_()
+
+            highscores_location = "highcores.txt"
+            names_location = "highcores_names.txt"
+            file = open(names_location, "a")
+            file.write("{}\n".format(name))
+            file.close()
+            file = open(highscores_location, "a")
+            file.write("{}\n".format(highscore))
+            file.close()
+
+            Dialog = QtWidgets.QDialog()
+            ui = Show_highscores_dialog()
+            ui.setupUi(Dialog)
+            Dialog.exec_()
 
         Dialog = QtWidgets.QDialog()
         ui = Resets_dialog()
