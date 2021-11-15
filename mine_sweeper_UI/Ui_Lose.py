@@ -31,7 +31,7 @@ class Lose_dialog(object):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout.addWidget(self.pushButton_2)
-        self.pushButton.clicked.connect(lambda: self.hard_clicked(Dialog))
+        self.pushButton_2.clicked.connect(lambda: self.hard_clicked(Dialog))
         self.verticalLayout.addLayout(self.horizontalLayout)
         Dialog.setWindowTitle("Perdiste")
         self.label.setText("Perdiste")

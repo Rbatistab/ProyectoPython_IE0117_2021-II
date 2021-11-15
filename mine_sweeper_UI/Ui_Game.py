@@ -216,7 +216,7 @@ class Ui_Game(object):
         j = rbt.position[1]
 
         if(not self.first_click):
-            print("first")
+            # print("first")
             self.timer.start(1000)
             self.first_click = True
 
@@ -269,7 +269,7 @@ class Ui_Game(object):
                     if(visible_matrix[a][b]):
                         self.hidden = self.hidden - 1
 
-            print(self.hidden)
+            # print(self.hidden)
 
             if(self.hidden == mines):
                 self.timer.stop()
@@ -322,6 +322,9 @@ class Ui_Game(object):
 
         self.lcd_minas.display(mines - self.flag_number)
 
+        if(is_mine(self.back_matrix.matrix[i][j])):
+            self.lose(MainWindow, bool)
+
     def LCDEvent(self):
         self.s += 1
         self.lcd_tiempo.display(self.s)
@@ -364,6 +367,19 @@ class Ui_Game(object):
 
         Dialog = QtWidgets.QDialog()
         ui = Resets_dialog()
+        ui.setupUi(Dialog)
+        Dialog.exec_()
+        soft = ui.soft_reset
+        hard = ui.hard_reset
+
+        if(soft):
+            self.soft_reset(MainWindow, bool)
+        elif(hard):
+            self.hard_reset(MainWindow, bool)
+
+    def lose(self, MainWindow, bool):
+        Dialog = QtWidgets.QDialog()
+        ui = Lose_dialog()
         ui.setupUi(Dialog)
         Dialog.exec_()
         soft = ui.soft_reset
