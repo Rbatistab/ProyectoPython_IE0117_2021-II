@@ -285,47 +285,74 @@ class Ui_Game(object):
                             self.matrix[a][b].setIcon(self.icon("flag"))
                             self.matrix[a][b].setEnabled(False)
 
+                self.lcd_minas.display(0)
+
+                if(number_matrix[i][j] == 0):
+                    self.matrix[i][j].setIcon(self.icon("0"))
+                elif(number_matrix[i][j] == 1):
+                    self.matrix[i][j].setIcon(self.icon("1"))
+                elif(number_matrix[i][j] == 2):
+                    self.matrix[i][j].setIcon(self.icon("2"))
+                elif(number_matrix[i][j] == 3):
+                    self.matrix[i][j].setIcon(self.icon("3"))
+                elif(number_matrix[i][j] == 4):
+                    self.matrix[i][j].setIcon(self.icon("4"))
+                elif(number_matrix[i][j] == 5):
+                    self.matrix[i][j].setIcon(self.icon("5"))
+                elif(number_matrix[i][j] == 6):
+                    self.matrix[i][j].setIcon(self.icon("6"))
+                elif(number_matrix[i][j] == 7):
+                    self.matrix[i][j].setIcon(self.icon("7"))
+                elif(number_matrix[i][j] == 8):
+                    self.matrix[i][j].setIcon(self.icon("8"))
+
                 self.win(MainWindow, bool, highscore)
+
+            else:
+                self.lcd_minas.display(mines - self.flag_number)
+
+                for a in range(n):
+                    for b in range(m):
+                        if(visible_matrix[a][b]):
+                            if(number_matrix[a][b] == -1):
+                                self.matrix[a][b].setIcon(self.icon("mine"))
+                            elif(number_matrix[a][b] == 0):
+                                self.matrix[a][b].setIcon(self.icon("0"))
+                            elif(number_matrix[a][b] == 1):
+                                self.matrix[a][b].setIcon(self.icon("1"))
+                            elif(number_matrix[a][b] == 2):
+                                self.matrix[a][b].setIcon(self.icon("2"))
+                            elif(number_matrix[a][b] == 3):
+                                self.matrix[a][b].setIcon(self.icon("3"))
+                            elif(number_matrix[a][b] == 4):
+                                self.matrix[a][b].setIcon(self.icon("4"))
+                            elif(number_matrix[a][b] == 5):
+                                self.matrix[a][b].setIcon(self.icon("5"))
+                            elif(number_matrix[a][b] == 6):
+                                self.matrix[a][b].setIcon(self.icon("6"))
+                            elif(number_matrix[a][b] == 7):
+                                self.matrix[a][b].setIcon(self.icon("7"))
+                            elif(number_matrix[a][b] == 8):
+                                self.matrix[a][b].setIcon(self.icon("8"))
+                        else:
+                            if(flag_matrix[a][b] == "no_flag_state"):
+                                self.matrix[a][b].setIcon(self.icon("blank"))
+                            elif(flag_matrix[a][b] == "flag_state"):
+                                self.matrix[a][b].setIcon(self.icon("flag"))
+                            elif(flag_matrix[a][b] == "question_state"):
+                                self.matrix[a][b].setIcon(
+                                                          self.icon(
+                                                                    "question"
+                                                                    )
+                                                          )
 
             # print(number_matrix)
             # print(visible_matrix)
             # print(flag_matrix)
 
-            for a in range(n):
-                for b in range(m):
-                    if(visible_matrix[a][b]):
-                        if(number_matrix[a][b] == -1):
-                            self.matrix[a][b].setIcon(self.icon("mine"))
-                        elif(number_matrix[a][b] == 0):
-                            self.matrix[a][b].setIcon(self.icon("0"))
-                        elif(number_matrix[a][b] == 1):
-                            self.matrix[a][b].setIcon(self.icon("1"))
-                        elif(number_matrix[a][b] == 2):
-                            self.matrix[a][b].setIcon(self.icon("2"))
-                        elif(number_matrix[a][b] == 3):
-                            self.matrix[a][b].setIcon(self.icon("3"))
-                        elif(number_matrix[a][b] == 4):
-                            self.matrix[a][b].setIcon(self.icon("4"))
-                        elif(number_matrix[a][b] == 5):
-                            self.matrix[a][b].setIcon(self.icon("5"))
-                        elif(number_matrix[a][b] == 6):
-                            self.matrix[a][b].setIcon(self.icon("6"))
-                        elif(number_matrix[a][b] == 7):
-                            self.matrix[a][b].setIcon(self.icon("7"))
-                        elif(number_matrix[a][b] == 8):
-                            self.matrix[a][b].setIcon(self.icon("8"))
-                    else:
-                        if(flag_matrix[a][b] == "no_flag_state"):
-                            self.matrix[a][b].setIcon(self.icon("blank"))
-                        elif(flag_matrix[a][b] == "flag_state"):
-                            self.matrix[a][b].setIcon(self.icon("flag"))
-                        elif(flag_matrix[a][b] == "question_state"):
-                            self.matrix[a][b].setIcon(self.icon("question"))
-
             if(is_mine(self.back_matrix.matrix[i][j])):
+                self.lcd_minas.display(mines)
                 self.lose(MainWindow, bool)
-
-        self.lcd_minas.display(mines - self.flag_number)
 
     def LCDEvent(self):
         self.s += 1
