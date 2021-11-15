@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-
-
 import sys
 sys.path.append('../ProyectoPython_IE0117_2021-II')
 from mine_sweeper_backend.mine_sweeper_backend import *
@@ -15,7 +13,6 @@ from mine_sweeper_UI.Ui_Game import Ui_Game
 # from mine_sweeper_UI.Ui_Show_Highscores import Ui_Show_Highscores
 # from mine_sweeper_UI.Ui_Add_Highscores import Ui_Add_Highscores
 # from mine_sweeper_backend.mine_sweeper_backend import matrix_creation
-import sys
 
 
 class GameMainWindow(QtWidgets.QMainWindow):
@@ -70,7 +67,7 @@ def game_window(n, m, mines, bool):
     MainWindow = GameMainWindow(bool)
     # create and send BE matrix
     mines_and_numbers_matrix = get_game_matrix(n, m, mines)
-    
+
     # -----------------------------------------
     # Testing unicamente, borramos este bloque:
     print("La matriz del juego es:")

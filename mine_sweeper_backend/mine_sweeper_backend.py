@@ -2,7 +2,8 @@
 
 import random
 from mine_sweeper_backend.GeneralMatrix import GeneralMatrix as GeneralMatrix
-from mine_sweeper_backend.BoxClasses import BoxClass, MineBox as MineBox
+# from mine_sweeper_backend.BoxClasses import BoxClass, MineBox as MineBox
+from mine_sweeper_backend.BoxClasses import MineBox as MineBox
 from mine_sweeper_backend.BoxClasses import NumberBox as NumberBox
 
 
@@ -14,9 +15,9 @@ def get_game_matrix(rows, cols, mines):
     sort_mines(mines, rows, cols, game_matrix)
     add_numbers_to_matrix(game_matrix)
     return game_matrix
-    
 
-def get_empty_matrix(rows, columns, object_type = object):
+
+def get_empty_matrix(rows, columns, object_type=object):
     '''
     Creates an empty matrix
     '''
@@ -94,7 +95,7 @@ def get_box_number(row, col, matrix):
     Gets the number of adjacent mines for a given box coordinates
     '''
     box_number = 0
-    adjacent_boxes = matrix.get_adjacent_elements(row,col)
+    adjacent_boxes = matrix.get_adjacent_elements(row, col)
     for box in adjacent_boxes:
         if(is_mine(box)):
             box_number += 1
