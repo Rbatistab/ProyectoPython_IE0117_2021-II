@@ -8,6 +8,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # from mine_sweeper_UI import mine_sweeper_UI as UI
 from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog
 from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog
+from mine_sweeper_UI.Ui_Win import Win_dialog
+from mine_sweeper_UI.Ui_Lose import Lose_dialog
+from mine_sweeper_UI.Ui_Resets import Resets_dialog
 
 
 class grid_button(QtWidgets.QPushButton):
@@ -38,6 +41,7 @@ class Ui_Game(object):
         self.click_number = 0
 
     def setupUi(self, MainWindow, n, m, mines, bool):
+        self.hidden = n*m
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(674, 458)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -84,7 +88,7 @@ class Ui_Game(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.button_grid(n, m, mines, MainWindow)
+        self.button_grid(n, m, bool, mines, MainWindow)
         self.verticalLayout.addLayout(self.gridLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -187,7 +191,7 @@ class Ui_Game(object):
 
         return icon
 
-    def button_grid(self, n, m, mines, MainWindow):
+    def button_grid(self, n, m, bool, mines, MainWindow):
         self.matrix = matrix_creation(n, m)
         font = QtGui.QFont()
         font.setPointSize(24)
@@ -203,10 +207,10 @@ class Ui_Game(object):
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
                 # print(a, b)
                 self.matrix[a][b].clicked.connect(
-                    lambda: self.button_click(MainWindow, n, m, mines)
+                    lambda: self.button_click(MainWindow, bool, n, m, mines)
                     )
 
-    def button_click(self, MainWindow, n, m, mines):
+    def button_click(self, MainWindow, bool, n, m, mines):
         rbt = MainWindow.sender()
         i = rbt.position[0]
         j = rbt.position[1]
@@ -232,7 +236,7 @@ class Ui_Game(object):
                 box.set_flag_state("no_flag_state")
         else:
             self.click_number = self.click_number + 1
-            print(self.click_number)
+            # print(self.click_number)
             self.back_matrix.matrix[i][j].click_this_box()
             self.matrix[i][j].setEnabled(False)
             number_matrix = matrix_creation(n, m)
@@ -257,6 +261,29 @@ class Ui_Game(object):
                         number_matrix[a][b] = box.number
                         visible_matrix[a][b] = box.was_clicked
                         flag_matrix[a][b] = box.flag_state
+
+            self.hidden = n*m
+
+            for a in range(n):
+                for b in range(m):
+                    if(visible_matrix[a][b]):
+                        self.hidden = self.hidden - 1
+
+            print(self.hidden)
+
+            if(self.hidden == mines):
+                self.timer.stop()
+                try:
+                    highscore = self.click_number/self.s
+                except ZeroDivisionError:
+                    highscore = float('inf')
+                for a in range(n):
+                    for b in range(m):
+                        if(number_matrix[a][b] == -1):
+                            self.matrix[a][b].setIcon(self.icon("flag"))
+                            self.matrix[a][b].setEnabled(False)
+
+                self.win(MainWindow, bool, highscore)
 
             # print(number_matrix)
             # print(visible_matrix)
@@ -314,9 +341,13 @@ class Ui_Game(object):
 
         return name
 
-    def highcore_add_show(self):
+    def win(self, MainWindow, bool, highscore):
+        Dialog = QtWidgets.QDialog()
+        ui = Win_dialog()
+        ui.setupUi(Dialog)
+        Dialog.exec_()
+
         name = self.add_highscores_window()
-        highscore = 0.1
         highscores_location = "highcores.txt"
         names_location = "highcores_names.txt"
         file = open(names_location, "a")
@@ -325,7 +356,23 @@ class Ui_Game(object):
         file = open(highscores_location, "a")
         file.write("{}\n".format(highscore))
         file.close()
-        self.show_highscores_window()
+
+        Dialog = QtWidgets.QDialog()
+        ui = Show_highscores_dialog()
+        ui.setupUi(Dialog)
+        Dialog.exec_()
+
+        Dialog = QtWidgets.QDialog()
+        ui = Resets_dialog()
+        ui.setupUi(Dialog)
+        Dialog.exec_()
+        soft = ui.soft_reset
+        hard = ui.hard_reset
+
+        if(soft):
+            self.soft_reset(MainWindow, bool)
+        elif(hard):
+            self.hard_reset(MainWindow, bool)
 
     def soft_reset(self, MainWindow, bool):
         bool.soft_reset = True
@@ -347,3 +394,18 @@ def matrix_creation(n, m):
             matrix[a].append([])
 
     return matrix
+
+# ----------------------- Mock ups to delete-----------------------------------
+
+# def highcore_add_show(self):
+#     name = self.add_highscores_window()
+#     highscore = 0.1
+#     highscores_location = "highcores.txt"
+#     names_location = "highcores_names.txt"
+#     file = open(names_location, "a")
+#     file.write("{}\n".format(name))
+#     file.close()
+#     file = open(highscores_location, "a")
+#     file.write("{}\n".format(highscore))
+#     file.close()
+#     self.show_highscores_window()
