@@ -70,7 +70,11 @@ def mock_up_matrix():
   mock_up = GeneralMatrix(6,7)
   for row_ind, row in enumerate(mock_up_matrix_elems):
     for col_ind, elem in enumerate(row):
-      mock_up.set_element_value(row_ind,col_ind, elem)
+      if elem == '*':
+        curr_elem = MineBox()
+      else:
+        curr_elem = NumberBox(elem)
+      mock_up.set_element_value(row_ind, col_ind, curr_elem)
   return mock_up
 
 print("\nMock up Matrix:")
@@ -82,16 +86,30 @@ print("\nTesting \'get_perimeter(0,0,mock_up_mtrx):\'")
 perimeter1 = get_perimeter(0,0,mock_up_mtrx)
 print(perimeter1)
 
-# Testing 
-print("\nTesting \'get_perimeter(0,2,mock_up_mtrx):\'")
-perimeter = get_perimeter(0,2,mock_up_mtrx)
-print(perimeter)
+# # Testing 
+# print("\nTesting \'get_perimeter(0,2,mock_up_mtrx):\'")
+# perimeter = get_perimeter(0,2,mock_up_mtrx)
+# print(perimeter)
 
+    # right
 
-for row in game_matrix_object: # recorre filas
-  for element in row: # recorre columnas de una fila
-    if is_mine(element): 
-      # procesa como mina
-    else:
-      number = element.number
-      # procesa como numero
+    # down (l, c, R)
+
+    # adjacent_boxes = game_matrix.get_adjacent_coordinates_and_elements(row,col)
+    # print(adjacent_boxes)
+    # for neighbor in adjacent_boxes:
+    #     box = neighbor[2]
+    #     print(box)
+    #     # if not is_mine(box):
+    #     if not is_mine_dummy_test(box):
+    #         rw = neighbor[0]
+    #         cl = neighbor[1]
+    #         coords = (rw, cl)
+    #         print(coords)
+    #         if not coords in perimeter:
+    #             perimeter.append( coords )
+    #         # if box.number == 0:
+    #         if box == 0:
+    #             perimeter = get_perimeter(rw, cl, game_matrix, perimeter)
+    #     else:
+    #         print("no cords")

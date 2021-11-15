@@ -110,28 +110,52 @@ def is_mine(element):
 
 
 def get_perimeter(row, col, game_matrix):
-    # adjacent_boxes = game_matrix.get_adjacent_coordinates_and_elements(row,col)
-    # print(adjacent_boxes)
-    # for neighbor in adjacent_boxes:
-    #     box = neighbor[2]
-    #     print(box)
-    #     # if not is_mine(box):
-    #     if not is_mine_dummy_test(box):
-    #         rw = neighbor[0]
-    #         cl = neighbor[1]
-    #         coords = (rw, cl)
-    #         print(coords)
-    #         if not coords in perimeter:
-    #             perimeter.append( coords )
-    #         # if box.number == 0:
-    #         if box == 0:
-    #             perimeter = get_perimeter(rw, cl, game_matrix, perimeter)
-    #     else:
-    #         print("no cords")
+    '''
+    Returns the perimeter of a given number in the matrix
+    '''
+    perimeter = []
+    current_row = game_matrix.matrix[row]
+    perimeter += get_row_perimeter(row,col, current_row)
+    upper_bound = 0
+    lower_bound = row
+    # Upper rows:
+    # lower rows:
+
+
     return perimeter
 
-def is_mine_dummy_test(elem):
-    return '*' == elem
-
+# def has_vertical_zeroes_adyacent(row, col, game_matrix):
+#     for()
+#     return False
     
+
+def get_row_perimeter(row_ind, col_ind, current_row):
+    row_perimeter = []
+    horizontal_range = get_row_perimeter_range(col_ind, current_row)
+    for col_ind in range(horizontal_range['left_bound'], horizontal_range['right_bound'] + 1):
+        row_perimeter.append( (row_ind, col_ind) )
+    return row_perimeter
+
+
+def get_row_perimeter_range(pivot_col, current_row):
+    right_bound = len(current_row)
+    left_zero_counter = 0
+    right_zero_counter = 0
+    for col_ind in range(1, pivot_col + 1):
+        element = current_row[pivot_col - col_ind]
+        if is_mine(element) or element.number != 0:
+            break
+        left_zero_counter += 1
+    for col_ind in range(pivot_col + 1, right_bound):
+        element = current_row[col_ind]
+        if is_mine(element) or element.number != 0:
+            break
+        right_zero_counter += 1
+    left_bound = pivot_col - left_zero_counter
+    right_bound = pivot_col + right_zero_counter
+    zero_range = {
+     "left_bound": left_bound, 
+     "right_bound":right_bound   
+    }
+    return zero_range
 
