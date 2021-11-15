@@ -320,10 +320,10 @@ class Ui_Game(object):
                         elif(flag_matrix[a][b] == "question_state"):
                             self.matrix[a][b].setIcon(self.icon("question"))
 
-        self.lcd_minas.display(mines - self.flag_number)
+            if(is_mine(self.back_matrix.matrix[i][j])):
+                self.lose(MainWindow, bool)
 
-        if(is_mine(self.back_matrix.matrix[i][j])):
-            self.lose(MainWindow, bool)
+        self.lcd_minas.display(mines - self.flag_number)
 
     def LCDEvent(self):
         self.s += 1
