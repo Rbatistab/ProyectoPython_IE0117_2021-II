@@ -106,4 +106,31 @@ def is_mine(element):
     Determines if an element is a mine
     '''
     return (type(element) == MineBox)
-        
+
+
+def get_perimeter(row, col, game_matrix):
+    # adjacent_boxes = game_matrix.get_adjacent_coordinates_and_elements(row,col)
+    # print(adjacent_boxes)
+    # for neighbor in adjacent_boxes:
+    #     box = neighbor[2]
+    #     print(box)
+    #     # if not is_mine(box):
+    #     if not is_mine_dummy_test(box):
+    #         rw = neighbor[0]
+    #         cl = neighbor[1]
+    #         coords = (rw, cl)
+    #         print(coords)
+    #         if not coords in perimeter:
+    #             perimeter.append( coords )
+    #         # if box.number == 0:
+    #         if box == 0:
+    #             perimeter = get_perimeter(rw, cl, game_matrix, perimeter)
+    #     else:
+    #         print("no cords")
+    return perimeter
+
+def is_mine_dummy_test(elem):
+    return '*' == elem
+
+    
+

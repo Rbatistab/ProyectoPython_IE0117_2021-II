@@ -45,23 +45,55 @@ class GeneralMatrix:
         return (rows,cols)
 
 
-    def get_adjacent_elements(self, row, col):
+    def get_adjacent_entity(self, row, col, entity_type):
         '''
         Returns a list with the neighbor elements for an element
         in a given coordinate 
         '''
-        adjacent_elements = []
+        adjacent_entity = []
         for rw in range(row - 1, row + 2):
             if rw < 0: 
                 continue
             for cl in range(col -1, col + 2):
                 if not (cl < 0 or (cl == col and rw == row)): 
                     try:
-                        element = self.matrix[rw][cl]
-                        adjacent_elements.append(element)
+                        if entity_type == 'coordinates':
+                            element = (rw,cl)
+                        elif entity_type == 'element':
+                            element = self.matrix[rw][cl]
+                        elif entity_type == 'coordinates_and_elements':
+                            element = (rw, cl, self.matrix[rw][cl])
+                        adjacent_entity.append(element)
                     except IndexError:
                         pass
+        return adjacent_entity
+
+
+    def get_adjacent_elements(self, row, col):
+        '''
+        Returns a list with the neighbor elements for an element
+        in a given coordinate 
+        '''
+        adjacent_elements = self.get_adjacent_entity(row, col, 'element')
         return adjacent_elements
+
+
+    def get_adjacent_coordinates(self, row, col):
+        '''
+        Returns a list with the neighbor element's coordinates for an element
+        in a given coordinate 
+        '''
+        adjacent_coordinates = self.get_adjacent_entity(row, col, 'coordinates')
+        return adjacent_coordinates
+
+
+    def get_adjacent_coordinates_and_elements(self, row, col):
+        '''
+        Returns a list with the neighbor element's coordinates for an element
+        in a given coordinate 
+        '''
+        adjacent_coordinates = self.get_adjacent_entity(row, col, 'coordinates_and_elements')
+        return adjacent_coordinates
 
 
     def __str__(self):

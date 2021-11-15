@@ -45,12 +45,53 @@ print( str(empty_matrix) )
 
 
 
-print("\nTesting \'get_game_matrix:\'")
+print("\nTesting \'get_game_matrix(6, 4, 7):\'")
 game_matrix = get_game_matrix(6, 4, 7)
 print(str(game_matrix))
 
 
 
-print("\nTesting \'get_game_matrix:\'")
+print("\nTesting \'get_game_matrix(9, 9, 60):\'")
 game_matrix = get_game_matrix(9, 9, 60)
 print(str(game_matrix))
+
+
+def mock_up_matrix():
+  mock_up_matrix_elems = [
+  # [0  ,  1 ,  2 , 3,  4 , 5,  6  cols/rows
+    [0  ,  1 ,  1 , 3, '*', 1,  0 ], # 0
+    [0  ,  2 , '*', 4, '*', 1,  0 ], # 1 
+    [0  ,  2 , '*', 3,  1 , 1,  0 ], # 2
+    [0  ,  1 ,  0 , 1,  1 , 1,  1 ], # 3
+    [0  ,  0 ,  0 , 1, '*', 2, '*'], # 4
+    [0  ,  0 ,  0 , 0,  0 , 0,  0 ]  # 5
+  ]
+  
+  mock_up = GeneralMatrix(6,7)
+  for row_ind, row in enumerate(mock_up_matrix_elems):
+    for col_ind, elem in enumerate(row):
+      mock_up.set_element_value(row_ind,col_ind, elem)
+  return mock_up
+
+print("\nMock up Matrix:")
+mock_up_mtrx = mock_up_matrix()
+print(str(mock_up_mtrx))
+
+# Testing 
+print("\nTesting \'get_perimeter(0,0,mock_up_mtrx):\'")
+perimeter1 = get_perimeter(0,0,mock_up_mtrx)
+print(perimeter1)
+
+# Testing 
+print("\nTesting \'get_perimeter(0,2,mock_up_mtrx):\'")
+perimeter = get_perimeter(0,2,mock_up_mtrx)
+print(perimeter)
+
+
+for row in game_matrix_object: # recorre filas
+  for element in row: # recorre columnas de una fila
+    if is_mine(element): 
+      # procesa como mina
+    else:
+      number = element.number
+      # procesa como numero
