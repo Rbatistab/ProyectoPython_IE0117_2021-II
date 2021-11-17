@@ -113,49 +113,59 @@ def get_perimeter(row, col, game_matrix):
     '''
     Returns the perimeter of a given number in the matrix
     '''
-    perimeter = []
-    current_row = game_matrix.matrix[row]
-    perimeter += get_row_perimeter(row,col, current_row)
-    upper_bound = 0
-    lower_bound = row
-    # Upper rows:
-    # lower rows:
-
-
+    perimeter = [(row, col)]
+    is_zero = 0 == game_matrix.get_element(row,col).number
+    if is_zero:
+        neighbors = game_matrix.get_adjacent_coordinates_and_elements(row,col)
+        split_neighbors = split_neighbors_by_zeros(neighbors)
+        not_zeroes = split_neighbors['neighbor_not_zeroes']
+        zeroes = split_neighbors['neighbor_zeroes']
+        add_not_zeros_to_perimeter(perimeter, not_zeroes)
+        process_zeroes(perimeter, zeroes)
+        print("checking perimeter:")
     return perimeter
 
-# def has_vertical_zeroes_adyacent(row, col, game_matrix):
-#     for()
-#     return False
-    
 
-def get_row_perimeter(row_ind, col_ind, current_row):
-    row_perimeter = []
-    horizontal_range = get_row_perimeter_range(col_ind, current_row)
-    for col_ind in range(horizontal_range['left_bound'], horizontal_range['right_bound'] + 1):
-        row_perimeter.append( (row_ind, col_ind) )
-    return row_perimeter
+def process_zeroes(perimeter, zeroes):
+    '''
+    Processes the zeroes in the neigborhood of a zero, ideally
+    this would be recursive
+    '''
+    for zero in zeroes:
+        add_coordinate_to_perimeter(zero, perimeter)
 
 
-def get_row_perimeter_range(pivot_col, current_row):
-    right_bound = len(current_row)
-    left_zero_counter = 0
-    right_zero_counter = 0
-    for col_ind in range(1, pivot_col + 1):
-        element = current_row[pivot_col - col_ind]
-        if is_mine(element) or element.number != 0:
-            break
-        left_zero_counter += 1
-    for col_ind in range(pivot_col + 1, right_bound):
-        element = current_row[col_ind]
-        if is_mine(element) or element.number != 0:
-            break
-        right_zero_counter += 1
-    left_bound = pivot_col - left_zero_counter
-    right_bound = pivot_col + right_zero_counter
-    zero_range = {
-     "left_bound": left_bound, 
-     "right_bound":right_bound   
+def add_not_zeros_to_perimeter(perimeter, not_zeroes):
+    '''
+    Adds non zero elements to perimeter
+    '''
+    for element in not_zeroes:
+        if not is_mine(element[2]):
+            add_coordinate_to_perimeter(element, perimeter)
+            
+
+def add_coordinate_to_perimeter(neighbor, perimeter):
+    '''
+    Adds a single coordinate to the perimeter
+    '''
+    coordinate = (neighbor[0], neighbor[1])
+    perimeter.append(coordinate)
+
+
+def split_neighbors_by_zeros(neighbors):
+    '''
+    Splits neighbors as zeroes or non zeroes
+    '''
+    neighbor_zeroes = []
+    neighbor_not_zeroes = []
+    for neighbor in neighbors:
+        element = neighbor[2]
+        if not is_mine(element):
+            if element.number == 0:
+                neighbor_zeroes.append(neighbor)
+            else:
+                neighbor_not_zeroes.append(neighbor)
+    return {
+        'neighbor_zeroes':neighbor_zeroes,
+        'neighbor_not_zeroes':neighbor_not_zeroes
     }
-    return zero_range
-

@@ -64,7 +64,7 @@ def mock_up_matrix():
     [0  ,  2 , '*', 3,  1 , 1,  0 ], # 2
     [0  ,  1 ,  0 , 1,  1 , 1,  1 ], # 3
     [0  ,  0 ,  0 , 1, '*', 2, '*'], # 4
-    [0  ,  0 ,  0 , 0,  0 , 0,  0 ]  # 5
+    [0  ,  0 ,  0 , 1,  1 , 1,  1 ]  # 5
   ]
   
   mock_up = GeneralMatrix(6,7)
@@ -86,10 +86,17 @@ print("\nTesting \'get_perimeter(0,0,mock_up_mtrx):\'")
 perimeter1 = get_perimeter(0,0,mock_up_mtrx)
 print(perimeter1)
 
-# # Testing 
-# print("\nTesting \'get_perimeter(0,2,mock_up_mtrx):\'")
-# perimeter = get_perimeter(0,2,mock_up_mtrx)
-# print(perimeter)
+# Testing 
+print("\nTesting \'get_perimeter(0,2,mock_up_mtrx):\'")
+perimeter2 = get_perimeter(0,2,mock_up_mtrx)
+print(perimeter2)
+
+
+# Testing 
+print("\nTesting \'get_perimeter(3,2,mock_up_mtrx):\'")
+perimeter3 = get_perimeter(3,2,mock_up_mtrx)
+print(perimeter3)
+print("")
 
     # right
 

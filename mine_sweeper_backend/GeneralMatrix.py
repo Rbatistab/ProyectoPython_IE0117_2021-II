@@ -32,6 +32,7 @@ class GeneralMatrix:
         '''
         return self.matrix[row][col]
 
+
     def get_matrix_dimensions(self):
         '''
         Returns size of the matrix
@@ -39,6 +40,7 @@ class GeneralMatrix:
         rows = len(self.matrix)
         cols = len(self.matrix[0])
         return (rows, cols)
+        
 
     def get_adjacent_entity(self, row, col, entity_type):
         '''
@@ -102,6 +104,7 @@ class GeneralMatrix:
 
             matrix_string += "\n"
         return matrix_string
+
 
     def __iter__(self):
         '''
