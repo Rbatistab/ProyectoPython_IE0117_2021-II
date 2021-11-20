@@ -38,6 +38,7 @@ def exec(RESET_BOOL):
     '''
     rows, columns, mines = UI.dimensions_mines()
     bool = RESET_BOOL
+    bool.full_reset = False
 
     while(not bool.full_reset and not bool.close):
         bool.soft_reset = False
