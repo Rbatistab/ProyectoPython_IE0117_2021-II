@@ -7,7 +7,7 @@ from mine_sweeper_UI import mine_sweeper_UI as UI
 
 def terminate_mine_sweeper():
     # mensage de UI para el usuario de que se esta cerrando el programa
-    print("Finalizando ejecution en terminate_mine_sweeper()")  # Delete this line when we are done
+    print("Finalizando ejecution en terminate_mine_sweeper()")  # Delete this line when we are done  # noqa
     sys.exit()
 
 

@@ -1,18 +1,16 @@
-#!/usr/bin/python3
+# import sys
+# sys.path.append('../ProyectoPython_IE0117_2021-II') # noqa
+from mine_sweeper_backend.mine_sweeper_backend import is_mine
 
-import sys
-sys.path.append('../ProyectoPython_IE0117_2021-II') # noqa
-from mine_sweeper_backend.mine_sweeper_backend import * # noqa
-
-from PyQt5 import QtCore, QtGui, QtWidgets # noqa
+from PyQt5 import QtCore, QtGui, QtWidgets
 # from mine_sweeper_UI import mine_sweeper_UI as UI
-from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog # noqa
-from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog # noqa
-from mine_sweeper_UI.Ui_Win import Win_dialog # noqa
-from mine_sweeper_UI.Ui_Lose import Lose_dialog # noqa
-from mine_sweeper_UI.Ui_Resets import Resets_dialog # noqa
-from mine_sweeper_UI.Ui_Ask_Add_Highscore import Ask_Add_Highscore_dialog # noqa
-from mine_sweeper_UI.Ui_Invalid_Name import Invalid_Name_dialog # noqa
+from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog
+from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog
+from mine_sweeper_UI.Ui_Win import Win_dialog
+from mine_sweeper_UI.Ui_Lose import Lose_dialog
+from mine_sweeper_UI.Ui_Resets import Resets_dialog
+from mine_sweeper_UI.Ui_Ask_Add_Highscore import Ask_Add_Highscore_dialog
+from mine_sweeper_UI.Ui_Invalid_Name import Invalid_Name_dialog
 
 
 class grid_button(QtWidgets.QPushButton):

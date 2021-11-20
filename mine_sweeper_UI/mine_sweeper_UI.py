@@ -1,8 +1,6 @@
-#!/usr/bin/python3
-
 import sys
-sys.path.append('../ProyectoPython_IE0117_2021-II')
-from mine_sweeper_backend.mine_sweeper_backend import *
+# sys.path.append('../ProyectoPython_IE0117_2021-II')
+from mine_sweeper_backend.mine_sweeper_backend import get_game_matrix
 
 # from PyQt5 import QtCore, QtGui, QtWidgets
 from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions

@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import random
 from mine_sweeper_backend.GeneralMatrix import GeneralMatrix as GeneralMatrix
 # from mine_sweeper_backend.BoxClasses import BoxClass, MineBox as MineBox
@@ -114,9 +112,9 @@ def get_perimeter(row, col, game_matrix):
     Returns the perimeter of a given number in the matrix
     '''
     perimeter = [(row, col)]
-    is_zero = 0 == game_matrix.get_element(row,col).number
+    is_zero = 0 == game_matrix.get_element(row, col).number
     if is_zero:
-        neighbors = game_matrix.get_adjacent_coordinates_and_elements(row,col)
+        neighbors = game_matrix.get_adjacent_coordinates_and_elements(row, col)
         split_neighbors = split_neighbors_by_zeros(neighbors)
         not_zeroes = split_neighbors['neighbor_not_zeroes']
         zeroes = split_neighbors['neighbor_zeroes']
@@ -142,7 +140,7 @@ def add_not_zeros_to_perimeter(perimeter, not_zeroes):
     for element in not_zeroes:
         if not is_mine(element[2]):
             add_coordinate_to_perimeter(element, perimeter)
-            
+
 
 def add_coordinate_to_perimeter(neighbor, perimeter):
     '''
@@ -166,6 +164,6 @@ def split_neighbors_by_zeros(neighbors):
             else:
                 neighbor_not_zeroes.append(neighbor)
     return {
-        'neighbor_zeroes':neighbor_zeroes,
-        'neighbor_not_zeroes':neighbor_not_zeroes
+        'neighbor_zeroes': neighbor_zeroes,
+        'neighbor_not_zeroes': neighbor_not_zeroes
     }
