@@ -220,9 +220,10 @@ class Ui_Game(object):
             self.timer.start(1000)
             self.first_click = True
 
+        box = self.back_matrix.matrix[i][j]
+        flag_state = box.flag_state
+
         if(self.Bandera_signo_pregunta.isChecked()):
-            box = self.back_matrix.matrix[i][j]
-            flag_state = box.flag_state
             if(flag_state == "no_flag_state"):
                 self.flag_number = self.flag_number + 1
                 self.matrix[i][j].setIcon(self.icon("flag"))
@@ -234,7 +235,12 @@ class Ui_Game(object):
             elif(flag_state == "question_state"):
                 self.matrix[i][j].setIcon(self.icon("blank"))
                 box.set_flag_state("no_flag_state")
+            self.lcd_minas.display(mines - self.flag_number)
         else:
+            if(flag_state == "flag_state"):
+                box.set_flag_state("no_flag_state")
+                self.flag_number = self.flag_number - 1
+
             self.click_number = self.click_number + 1
             # print(self.click_number)
             self.back_matrix.matrix[i][j].click_this_box()

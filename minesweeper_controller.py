@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import sys
-from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
+# from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
 from mine_sweeper_UI import mine_sweeper_UI as UI
 
 
@@ -18,6 +18,7 @@ class Reset_Variables:  # Necistamos crear objetos de esta clase aqui?
     def __init__(self):
         self.full_reset = False
         self.soft_reset = False
+        self.close = False
 
 
 # def add_highscores(name, highscore):
@@ -31,14 +32,14 @@ class Reset_Variables:  # Necistamos crear objetos de esta clase aqui?
 #     file.close()
 
 
-def exec():
+def exec(RESET_BOOL):
     '''
     Executions gets the desired game information form the user and
     '''
     rows, columns, mines = UI.dimensions_mines()
-    bool = Reset_Variables()
+    bool = RESET_BOOL
 
-    while(not bool.full_reset):
+    while(not bool.full_reset and not bool.close):
         bool.soft_reset = False
         # game, boolean = initialize_game()
         print("inicializamos juego")
@@ -47,12 +48,19 @@ def exec():
         UI.game_window(rows, columns, mines, bool)
 
 
+# def main():
+#     try:
+#         while(True):
+#             exec()
+#     except ms_exceptions.TerminateMineSweeper:
+#         terminate_mine_sweeper()
+
 def main():
-    try:
-        while(True):
-            exec()
-    except ms_exceptions.TerminateMineSweeper:
-        terminate_mine_sweeper()
+    RESET_BOOL = Reset_Variables()
+    while(not RESET_BOOL.close):
+        exec(RESET_BOOL)
+
+    print("Finalizando juego")
 
 
 if __name__ == '__main__':
@@ -66,22 +74,22 @@ if __name__ == '__main__':
 
 # ----------------------- Mock ups to delete-----------------------------------
 
-        # win = True
-        # if(win):
-        #     name = UI.add_highscores_window()
-        #     highscore = input("Puntaje: ")
-        #     add_highscores(name, highscore)
-        #     print("Mostrando puntajes")
-        #     UI.show_highscores_window()
-        #     pass
-        # raise ms_exceptions.TerminateMineSweeper
-        #
-        # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop?
-        # while(not soft_reset and not full_reset):
-        #     if win:
-        #         print("Muestro puntajes")
-        #         # show_win(game) #Lo hace el UI
-        #         # highscore() #Lo hace el UI
-        #     elif loose:
-        #         print("Muestro puntajes perdida")
-        #         # show_loose(game) #Lo hace el UI
+        # win = True # noqa
+        # if(win): # noqa
+        #     name = UI.add_highscores_window() # noqa
+        #     highscore = input("Puntaje: ") # noqa
+        #     add_highscores(name, highscore) # noqa
+        #     print("Mostrando puntajes") # noqa
+        #     UI.show_highscores_window() # noqa
+        #     pass # noqa
+        # raise ms_exceptions.TerminateMineSweeper # noqa
+        # # noqa
+        # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop? # noqa
+        # while(not soft_reset and not full_reset): # noqa
+        #     if win: # noqa
+        #         print("Muestro puntajes") # noqa
+        #         # show_win(game) #Lo hace el UI # noqa
+        #         # highscore() #Lo hace el UI # noqa
+        #     elif loose: # noqa
+        #         print("Muestro puntajes perdida") # noqa
+        #         # show_loose(game) #Lo hace el UI # noqa

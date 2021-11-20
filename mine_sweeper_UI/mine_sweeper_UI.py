@@ -3,7 +3,7 @@ import sys
 from mine_sweeper_backend.mine_sweeper_backend import get_game_matrix
 
 # from PyQt5 import QtCore, QtGui, QtWidgets
-from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
+# from mine_sweeper_exceptions import mine_sweeper_exceptions as ms_exceptions
 from PyQt5 import QtWidgets
 from mine_sweeper_UI.Ui_Dimensions import Ui_Dimensions
 from mine_sweeper_UI.Ui_Mines import Ui_Mines
@@ -20,7 +20,8 @@ class GameMainWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self, event):
         if(not self.bool.soft_reset and not self.bool.full_reset):
-            raise ms_exceptions.TerminateMineSweeper
+            self.bool.close = True
+            # raise ms_exceptions.TerminateMineSweeper
 
 
 # ------------------------- Windows ------------------------------------------
@@ -102,7 +103,7 @@ def show_highscores_window():
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_Show_Highscores()
+    ui = Ui_Show_Highscores() # noqa
     ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
@@ -114,7 +115,7 @@ def add_highscores_window():
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_Add_Highscores()
+    ui = Ui_Add_Highscores() # noqa
     ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
@@ -131,7 +132,7 @@ class Board:  # Will we need this class?
 class PlayGame:  # Do we need this logic as a class?
     def playing(game, boolean):
         # A window of the game is refreshed
-        refresh_window(game)
+        refresh_window(game) # noqa
 
         # On left click event the box array is refreshed
         game.refresh_boxes_left()
@@ -150,23 +151,23 @@ class PlayGame:  # Do we need this logic as a class?
 
     def initialize_game(n, m, mines):
         # A Game class object is created. The atribute game_matrix is an array
-        # filled with box objects, that contain information about is its position,
-        # an atribute with a mine or a number, and another atribute that indicates
+        # filled with box objects, that contain information about is its position, # noqa
+        # an atribute with a mine or a number, and another atribute that indicates # noqa
         # the state: hidden, visible, flag or question mark.
-        game = Game(n, m)
+        game = Game(n, m) # noqa
 
         # The defined quantity of mines are randomly placed on the boxes
         game.mine_placing(mines)
 
-        # According to the mine placing, the numbers are written on the remaining
+        # According to the mine placing, the numbers are written on the remaining # noqa
         # boxes
         game.number_writting()
 
         # A window with the game layout is created
-        window_creation(n, m)
+        window_creation(n, m) # noqa
 
         # A Boolean_Variables object is created
-        boolean = Boolean_Variables
+        boolean = Boolean_Variables # noqa
 
         return game, boolean
 
