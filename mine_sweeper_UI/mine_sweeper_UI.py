@@ -87,7 +87,7 @@ def dimensions_mines():
     # n and m are saved
     n, m = dim_window()
 
-    max_mines = n*m
+    max_mines = n * m
     # A window is presented that asks for mine quantity, which is validated, if
     # there's an error this window asks again. The mine quantity is saved
     mines = mine_window(max_mines)
@@ -103,7 +103,7 @@ def show_highscores_window():
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_Show_Highscores() # noqa
+    ui = Ui_Show_Highscores()  # noqa
     ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
@@ -115,7 +115,7 @@ def add_highscores_window():
     '''
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_Add_Highscores() # noqa
+    ui = Ui_Add_Highscores()  # noqa
     ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
@@ -132,7 +132,7 @@ class Board:  # Will we need this class?
 class PlayGame:  # Do we need this logic as a class?
     def playing(game, boolean):
         # A window of the game is refreshed
-        refresh_window(game) # noqa
+        refresh_window(game)  # noqa
 
         # On left click event the box array is refreshed
         game.refresh_boxes_left()
@@ -154,7 +154,7 @@ class PlayGame:  # Do we need this logic as a class?
         # filled with box objects, that contain information about is its position, # noqa
         # an atribute with a mine or a number, and another atribute that indicates # noqa
         # the state: hidden, visible, flag or question mark.
-        game = Game(n, m) # noqa
+        game = Game(n, m)  # noqa
 
         # The defined quantity of mines are randomly placed on the boxes
         game.mine_placing(mines)
@@ -164,10 +164,10 @@ class PlayGame:  # Do we need this logic as a class?
         game.number_writting()
 
         # A window with the game layout is created
-        window_creation(n, m) # noqa
+        window_creation(n, m)  # noqa
 
         # A Boolean_Variables object is created
-        boolean = Boolean_Variables # noqa
+        boolean = Boolean_Variables  # noqa
 
         return game, boolean
 

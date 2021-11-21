@@ -18,12 +18,18 @@ from mine_sweeper_UI.Ui_Invalid_Name import Invalid_Name_dialog
 
 class grid_button(QtWidgets.QPushButton):
     def __init__(self, *args, **kargs):
+        '''
+        Constructs a grid button object for the UI
+        '''
         super(grid_button, self).__init__(*args, **kargs)
         self.position = [0, 0]
 
 
 class Ui_Game(object):
     def __init__(self, game_matrix_object):
+        '''
+        Constructs a Ui_Game object
+        '''
         self.back_matrix = game_matrix_object
         self.icon_0 = "mine_sweeper_UI/imgs/0.jpg"
         self.icon_1 = "mine_sweeper_UI/imgs/1.jpg"
@@ -43,7 +49,11 @@ class Ui_Game(object):
         self.flag_number = 0
         self.click_number = 0
 
+
     def setupUi(self, MainWindow, n, m, mines, bool):
+        '''
+        Sets up the Ui features
+        '''
         self.hidden = n*m
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(674, 458)
@@ -145,7 +155,11 @@ class Ui_Game(object):
         self.actionVer_puntajes.setText("Ver puntajes")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def icon(self, option):
+        '''
+        Returns and QIcon object with the desired icon option
+        '''
         icon = QtGui.QIcon()
         if(option == "0"):
             location = self.icon_0
@@ -194,7 +208,12 @@ class Ui_Game(object):
 
         return icon
 
+
     def button_grid(self, n, m, bool, mines, MainWindow):
+        '''
+        Creates a grid of buttons with "n" rows and "m" columns and sets
+        it to the matrix object of the class
+        '''
         self.matrix = matrix_creation(n, m)
         font = QtGui.QFont()
         font.setPointSize(24)
@@ -213,7 +232,12 @@ class Ui_Game(object):
                     lambda: self.button_click(MainWindow, bool, n, m, mines)
                     )
 
+
     def button_click(self, MainWindow, bool, n, m, mines):
+        '''
+        Adds the functionality of the click of a button, contemplating
+        it's usecases
+        '''
         rbt = MainWindow.sender()
         i = rbt.position[0]
         j = rbt.position[1]
@@ -373,19 +397,31 @@ class Ui_Game(object):
             row = coordinate[0]
             col = coordinate[1]
             visible_matrix[row][col] = True
+            game_matrix
 
 
     def LCDEvent(self):
+        '''
+        Displays a Timer with the game time
+        '''
         self.s += 1
         self.lcd_tiempo.display(self.s)
 
+
     def show_highscores_window(self):
+        '''
+        Pops a window with high scores to the user
+        '''
         Dialog = QtWidgets.QDialog()
         ui = Show_highscores_dialog()
         ui.setupUi(Dialog)
         Dialog.show()
 
+
     def add_highscores_window(self):
+        '''
+        Pops the window that allows to add a high score
+        '''
         Dialog = QtWidgets.QDialog()
         ui = Add_highscores_dialog()
         ui.setupUi(Dialog)
@@ -394,7 +430,11 @@ class Ui_Game(object):
 
         return name
 
+
     def win(self, MainWindow, bool, highscore):
+        '''
+        Manages the usecase for when the user wins
+        '''
         Dialog = QtWidgets.QDialog()
         ui = Win_dialog()
         ui.setupUi(Dialog)
@@ -445,7 +485,11 @@ class Ui_Game(object):
         elif(hard):
             self.hard_reset(MainWindow, bool)
 
+
     def lose(self, MainWindow, bool):
+        '''
+        Manages the usecase for when the user loses
+        '''
         Dialog = QtWidgets.QDialog()
         ui = Lose_dialog()
         ui.setupUi(Dialog)
@@ -458,16 +502,30 @@ class Ui_Game(object):
         elif(hard):
             self.hard_reset(MainWindow, bool)
 
+
     def soft_reset(self, MainWindow, bool):
+        '''
+        Allows the user to perform a reset of the current game but with-
+        out having to select dimensions and mines again.
+        It sets a new game for the same selected features
+        '''
         bool.soft_reset = True
         MainWindow.close()
 
+
     def hard_reset(self, MainWindow, bool):
+        '''
+        Allows the user to perform a full reset of the game, it will
+        call again the menus to choose dimensions and mines
+        '''
         bool.full_reset = True
         MainWindow.close()
 
 
 def matrix_creation(n, m):
+    '''
+    Returns a GeneralMatrix object with size nxm
+    '''
     matrix = GeneralMatrix(n,m)
 
     return matrix
