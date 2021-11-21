@@ -15,6 +15,7 @@ class Reset_Variables:  # Necistamos crear objetos de esta clase aqui?
     '''
     This class contain boolean variables regarding the reset and closing state
     '''
+
     def __init__(self):
         self.full_reset = False
         self.soft_reset = False
@@ -75,22 +76,22 @@ if __name__ == '__main__':
 
 # ----------------------- Mock ups to delete-----------------------------------
 
-        # win = True # noqa
-        # if(win): # noqa
-        #     name = UI.add_highscores_window() # noqa
-        #     highscore = input("Puntaje: ") # noqa
-        #     add_highscores(name, highscore) # noqa
-        #     print("Mostrando puntajes") # noqa
-        #     UI.show_highscores_window() # noqa
-        #     pass # noqa
-        # raise ms_exceptions.TerminateMineSweeper # noqa
-        # # noqa
-        # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop? # noqa
-        # while(not soft_reset and not full_reset): # noqa
-        #     if win: # noqa
-        #         print("Muestro puntajes") # noqa
-        #         # show_win(game) #Lo hace el UI # noqa
-        #         # highscore() #Lo hace el UI # noqa
-        #     elif loose: # noqa
-        #         print("Muestro puntajes perdida") # noqa
-        #         # show_loose(game) #Lo hace el UI # noqa
+    # win = True # noqa
+    # if(win): # noqa
+    #     name = UI.add_highscores_window() # noqa
+    #     highscore = input("Puntaje: ") # noqa
+    #     add_highscores(name, highscore) # noqa
+    #     print("Mostrando puntajes") # noqa
+    #     UI.show_highscores_window() # noqa
+    #     pass # noqa
+    # raise ms_exceptions.TerminateMineSweeper # noqa
+    # # noqa
+    # Este reinicio se puede hacer con un boton en el UI, necesitamos meter esto en un loop? # noqa
+    # while(not soft_reset and not full_reset): # noqa
+    #     if win: # noqa
+    #         print("Muestro puntajes") # noqa
+    #         # show_win(game) #Lo hace el UI # noqa
+    #         # highscore() #Lo hace el UI # noqa
+    #     elif loose: # noqa
+    #         print("Muestro puntajes perdida") # noqa
+    #         # show_loose(game) #Lo hace el UI # noqa
