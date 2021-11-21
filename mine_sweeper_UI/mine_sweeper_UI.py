@@ -67,12 +67,6 @@ def game_window(n, m, mines, bool):
     # create and send BE matrix
     mines_and_numbers_matrix = get_game_matrix(n, m, mines)
 
-    # -----------------------------------------
-    # Testing unicamente, borramos este bloque:
-    print("La matriz del juego es:")
-    print(str(mines_and_numbers_matrix))
-    # -----------------------------------------
-
     ui = Ui_Game(mines_and_numbers_matrix)
     ui.setupUi(MainWindow, n, m, mines, bool)
     MainWindow.show()
