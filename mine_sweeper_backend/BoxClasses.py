@@ -3,6 +3,7 @@ class BoxClass:
     General box class to represent a square box un the
     minesweeper
     '''
+
     def __init__(self, flag_state="no_flag_state"):
         self.flag_state = flag_state
         self.was_clicked = False
@@ -29,7 +30,6 @@ class BoxClass:
         '''
         self.was_clicked = True
 
-
     def __str__(self):
         pass
 
@@ -38,6 +38,7 @@ class MineBox(BoxClass):
     '''
     Represents a box with a Mine
     '''
+
     def __str__(self):
         return '*'
 
@@ -47,7 +48,7 @@ class NumberBox(BoxClass):
     Represents a box with no Mine, but a number
     '''
 
-    def __init__(self, number = -1):
+    def __init__(self, number=-1):
         BoxClass.__init__(self)
         self.number = number
 
@@ -63,4 +64,4 @@ class NumberBox(BoxClass):
         '''
         Overwrite to the str() method
         '''
-        return str( self.number )
+        return str(self.number)

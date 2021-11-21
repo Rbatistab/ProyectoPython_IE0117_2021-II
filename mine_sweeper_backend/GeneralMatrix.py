@@ -17,7 +17,6 @@ class GeneralMatrix:
         for a in range(n):
             for _ in range(m):
                 matrix[a].append(desired_object)
-
         return matrix
 
     def set_element_value(self, row, col, value):
@@ -32,7 +31,6 @@ class GeneralMatrix:
         '''
         return self.matrix[row][col]
 
-
     def get_matrix_dimensions(self):
         '''
         Returns size of the matrix
@@ -40,7 +38,6 @@ class GeneralMatrix:
         rows = len(self.matrix)
         cols = len(self.matrix[0])
         return (rows, cols)
-        
 
     def get_adjacent_entity(self, row, col, entity_type):
         '''
@@ -55,7 +52,7 @@ class GeneralMatrix:
                 if not (cl < 0 or (cl == col and rw == row)):
                     try:
                         if entity_type == 'coordinates':
-                            element = (rw,cl)
+                            element = (rw, cl)
                         elif entity_type == 'element':
                             element = self.matrix[rw][cl]
                         elif entity_type == 'coordinates_and_elements':
@@ -65,35 +62,36 @@ class GeneralMatrix:
                         pass
         return adjacent_entity
 
-
     def get_adjacent_elements(self, row, col):
         '''
-        Returns a list with the neighbor elements for an element
-        in a given coordinate 
+        Returns a list with the neighbor elements for an element in a
+        given coordinate
         '''
         adjacent_elements = self.get_adjacent_entity(row, col, 'element')
         return adjacent_elements
 
-
     def get_adjacent_coordinates(self, row, col):
         '''
-        Returns a list with the neighbor element's coordinates for an element
-        in a given coordinate 
+        Returns a list with the neighbor element's coordinates for an
+        element in a given coordinate
         '''
-        adjacent_coordinates = self.get_adjacent_entity(row, col, 'coordinates')
+        adjacent_coordinates = self.get_adjacent_entity(
+            row, col, 'coordinates')
         return adjacent_coordinates
-
 
     def get_adjacent_coordinates_and_elements(self, row, col):
         '''
-        Returns a list with the neighbor element's coordinates for an element
-        in a given coordinate 
+        Returns a list with the neighbor element's coordinates for an
+        element in a given coordinate
         '''
-        adjacent_coordinates = self.get_adjacent_entity(row, col, 'coordinates_and_elements')
+        adjacent_coordinates = self.get_adjacent_entity(
+            row, col, 'coordinates_and_elements')
         return adjacent_coordinates
 
-
     def __getitem__(self, row):
+        '''
+        Allows instances to use the indexer [] operators
+        '''
         return self.matrix[row]
 
     def __str__(self):
@@ -108,7 +106,6 @@ class GeneralMatrix:
             matrix_string += "\n"
         return matrix_string
 
-
     def __iter__(self):
         '''
         Matrix iterator
@@ -120,6 +117,7 @@ class GeneralMatrixIterator:
     '''
     Iterator class for GeneralMatrix
     '''
+
     def __init__(self, general_matrix):
         self._matrix = general_matrix.matrix
         self._index = 0
