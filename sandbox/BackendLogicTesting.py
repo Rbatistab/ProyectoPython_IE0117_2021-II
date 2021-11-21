@@ -81,42 +81,19 @@ print("\nMock up Matrix:")
 mock_up_mtrx = mock_up_matrix()
 print(str(mock_up_mtrx))
 
-# Testing 
-print("\nTesting \'get_perimeter(0,0,mock_up_mtrx):\'")
-perimeter1 = get_perimeter(0,0,mock_up_mtrx)
-print(perimeter1)
-
-# Testing 
-print("\nTesting \'get_perimeter(0,2,mock_up_mtrx):\'")
-perimeter2 = get_perimeter(0,2,mock_up_mtrx)
-print(perimeter2)
-
 
 # Testing 
 print("\nTesting \'get_perimeter(3,2,mock_up_mtrx):\'")
-perimeter3 = get_perimeter(3,2,mock_up_mtrx)
-print(perimeter3)
+perimeter = get_perimeter(3,2,mock_up_mtrx)
+print(perimeter)
 print("")
 
-    # right
+def matix_checking(matrix, perimeter):
+    for coord in perimeter:
+        rw = coord[0]
+        cl = coord[1]
+        matrix.get_element(rw,cl).number = 9
 
-    # down (l, c, R)
-
-    # adjacent_boxes = game_matrix.get_adjacent_coordinates_and_elements(row,col)
-    # print(adjacent_boxes)
-    # for neighbor in adjacent_boxes:
-    #     box = neighbor[2]
-    #     print(box)
-    #     # if not is_mine(box):
-    #     if not is_mine_dummy_test(box):
-    #         rw = neighbor[0]
-    #         cl = neighbor[1]
-    #         coords = (rw, cl)
-    #         print(coords)
-    #         if not coords in perimeter:
-    #             perimeter.append( coords )
-    #         # if box.number == 0:
-    #         if box == 0:
-    #             perimeter = get_perimeter(rw, cl, game_matrix, perimeter)
-    #     else:
-    #         print("no cords")
+print(mock_up_mtrx)
+matix_checking(mock_up_mtrx, perimeter)
+print(mock_up_mtrx)

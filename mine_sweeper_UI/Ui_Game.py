@@ -1,6 +1,9 @@
 # import sys
 # sys.path.append('../ProyectoPython_IE0117_2021-II') # noqa
+from mine_sweeper_backend.GeneralMatrix import GeneralMatrix
 from mine_sweeper_backend.mine_sweeper_backend import is_mine
+from mine_sweeper_backend.mine_sweeper_backend import get_perimeter
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 # from mine_sweeper_UI import mine_sweeper_UI as UI
@@ -267,15 +270,16 @@ class Ui_Game(object):
                         number_matrix[a][b] = box.number
                         visible_matrix[a][b] = box.was_clicked
                         flag_matrix[a][b] = box.flag_state
+            
+            if not (is_mine(self.back_matrix.matrix[i][j])):
+                self.set_visible_perimeter(i, j, self.back_matrix, visible_matrix)
 
             self.hidden = n*m
-
             for a in range(n):
                 for b in range(m):
                     if(visible_matrix[a][b]):
                         self.hidden = self.hidden - 1
 
-            # print(self.hidden)
 
             if(self.hidden == mines):
                 self.timer.stop()
@@ -357,6 +361,19 @@ class Ui_Game(object):
             if(is_mine(self.back_matrix.matrix[i][j])):
                 self.lcd_minas.display(mines)
                 self.lose(MainWindow, bool)
+
+
+    def set_visible_perimeter(self, row, col,game_matrix, visible_matrix):
+        ''''
+        Gets the perimeter for a non-mine box and sets its fields visible
+        in the visible_matrix
+        '''
+        perimeter = get_perimeter(row, col,game_matrix)
+        for coordinate in perimeter:
+            row = coordinate[0]
+            col = coordinate[1]
+            visible_matrix[row][col] = True
+
 
     def LCDEvent(self):
         self.s += 1
@@ -451,14 +468,7 @@ class Ui_Game(object):
 
 
 def matrix_creation(n, m):
-    matrix = []
-
-    for _ in range(n):
-        matrix.append([])
-
-    for a in range(n):
-        for _ in range(m):
-            matrix[a].append([])
+    matrix = GeneralMatrix(n,m)
 
     return matrix
 

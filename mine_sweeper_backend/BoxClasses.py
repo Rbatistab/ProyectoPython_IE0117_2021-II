@@ -6,6 +6,7 @@ class BoxClass:
     def __init__(self, flag_state="no_flag_state"):
         self.flag_state = flag_state
         self.was_clicked = False
+        self.is_in_perimeter = False
 
     def get_box_attributes(self):
         '''

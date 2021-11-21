@@ -93,6 +93,9 @@ class GeneralMatrix:
         return adjacent_coordinates
 
 
+    def __getitem__(self, row):
+        return self.matrix[row]
+
     def __str__(self):
         '''
         Returns a String representation of the matrix

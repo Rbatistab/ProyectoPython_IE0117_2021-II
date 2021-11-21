@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import random
 from mine_sweeper_backend.GeneralMatrix import GeneralMatrix as GeneralMatrix
 # from mine_sweeper_backend.BoxClasses import BoxClass, MineBox as MineBox
@@ -107,30 +109,65 @@ def is_mine(element):
     return (type(element) == MineBox)
 
 
-def get_perimeter(row, col, game_matrix):
+def get_perimeter(row, col, game_matrix, perimeter = []):
     '''
     Returns the perimeter of a given number in the matrix
     '''
-    perimeter = [(row, col)]
-    is_zero = 0 == game_matrix.get_element(row, col).number
+    perimeter.append((row,col))
+    current_box = game_matrix.get_element(row,col)
+    is_zero = current_box.number == 0 
+    current_box.is_in_perimeter = True
     if is_zero:
-        neighbors = game_matrix.get_adjacent_coordinates_and_elements(row, col)
+        neighbors = game_matrix.get_adjacent_coordinates_and_elements(row,col)
+        remove_repeated_neighbors(perimeter, neighbors)
+        print("neighbors")
+        print(neighbors)
+        if not neighbors:
+            return perimeter
         split_neighbors = split_neighbors_by_zeros(neighbors)
         not_zeroes = split_neighbors['neighbor_not_zeroes']
         zeroes = split_neighbors['neighbor_zeroes']
         add_not_zeros_to_perimeter(perimeter, not_zeroes)
-        process_zeroes(perimeter, zeroes)
-        print("checking perimeter:")
+        process_zeroes(perimeter, zeroes, game_matrix)
     return perimeter
 
 
-def process_zeroes(perimeter, zeroes):
+def remove_repeated_neighbors(perimeter, neighbors):
+    print("remove_repeated_neighbors")
+    print("ng:")
+    print_neigbors(neighbors)
+    print("per:")
+    print(perimeter)
+    for neigbor in neighbors:
+        box = neigbor[2]
+        if box.is_in_perimeter:
+            neighbors.remove(neigbor)
+            continue
+    print("removal:")
+    print("ng:")
+    print_neigbors(neighbors)
+    print("per:")
+    print(perimeter)
+    
+
+def print_neigbors(neighbors):
+    lst = []
+    for ng in neighbors:
+        lst.append( (ng[0], ng[1]) )
+    print(lst)
+
+
+def process_zeroes(perimeter, zeroes, game_matrix):
     '''
     Processes the zeroes in the neigborhood of a zero, ideally
     this would be recursive
     '''
     for zero in zeroes:
-        add_coordinate_to_perimeter(zero, perimeter)
+        row = zero[0]
+        col = zero[1]
+        box = zero[2]
+        if not box.is_in_perimeter:
+            get_perimeter(row, col, game_matrix, perimeter)
 
 
 def add_not_zeros_to_perimeter(perimeter, not_zeroes):
@@ -140,14 +177,15 @@ def add_not_zeros_to_perimeter(perimeter, not_zeroes):
     for element in not_zeroes:
         if not is_mine(element[2]):
             add_coordinate_to_perimeter(element, perimeter)
-
-
+            
+            
 def add_coordinate_to_perimeter(neighbor, perimeter):
     '''
     Adds a single coordinate to the perimeter
     '''
     coordinate = (neighbor[0], neighbor[1])
     perimeter.append(coordinate)
+    neighbor[2].is_in_perimeter = True
 
 
 def split_neighbors_by_zeros(neighbors):
@@ -164,6 +202,6 @@ def split_neighbors_by_zeros(neighbors):
             else:
                 neighbor_not_zeroes.append(neighbor)
     return {
-        'neighbor_zeroes': neighbor_zeroes,
-        'neighbor_not_zeroes': neighbor_not_zeroes
+        'neighbor_zeroes':neighbor_zeroes,
+        'neighbor_not_zeroes':neighbor_not_zeroes
     }
