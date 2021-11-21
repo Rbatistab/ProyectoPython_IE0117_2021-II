@@ -118,8 +118,6 @@ def get_perimeter(row, col, game_matrix, perimeter=[]):
     if is_zero:
         neighbors = game_matrix.get_adjacent_coordinates_and_elements(row, col)
         remove_repeated_neighbors(perimeter, neighbors)
-        print("neighbors")
-        print(neighbors)
         if not neighbors:
             return perimeter
         split_neighbors = split_neighbors_by_zeros(neighbors)
