@@ -1,12 +1,7 @@
-# import sys
-# sys.path.append('../ProyectoPython_IE0117_2021-II') # noqa
 from mine_sweeper_backend.GeneralMatrix import GeneralMatrix
 from mine_sweeper_backend.mine_sweeper_backend import is_mine
 from mine_sweeper_backend.mine_sweeper_backend import get_perimeter
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-# from mine_sweeper_UI import mine_sweeper_UI as UI
 from mine_sweeper_UI.Ui_Show_Highscores import Show_highscores_dialog
 from mine_sweeper_UI.Ui_Add_Highscores import Add_highscores_dialog
 from mine_sweeper_UI.Ui_Win import Win_dialog
@@ -48,7 +43,6 @@ class Ui_Game(object):
         self.first_click = False
         self.flag_number = 0
         self.click_number = 0
-
 
     def setupUi(self, MainWindow, n, m, mines, bool):
         '''
@@ -155,7 +149,6 @@ class Ui_Game(object):
         self.actionVer_puntajes.setText("Ver puntajes")
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-
     def icon(self, option):
         '''
         Returns and QIcon object with the desired icon option
@@ -208,7 +201,6 @@ class Ui_Game(object):
 
         return icon
 
-
     def button_grid(self, n, m, bool, mines, MainWindow):
         '''
         Creates a grid of buttons with "n" rows and "m" columns and sets
@@ -232,7 +224,6 @@ class Ui_Game(object):
                     lambda: self.button_click(MainWindow, bool, n, m, mines)
                     )
 
-
     def button_click(self, MainWindow, bool, n, m, mines):
         '''
         Adds the functionality of the click of a button, contemplating
@@ -243,7 +234,6 @@ class Ui_Game(object):
         j = rbt.position[1]
 
         if(not self.first_click):
-            # print("first")
             self.timer.start(1000)
             self.first_click = True
 
@@ -269,9 +259,13 @@ class Ui_Game(object):
                 self.flag_number = self.flag_number - 1
 
             self.click_number = self.click_number + 1
-            # print(self.click_number)
-            self.back_matrix.matrix[i][j].click_this_box()
-            self.matrix[i][j].setEnabled(False)
+
+            if(not is_mine(self.back_matrix.matrix[i][j])):
+                self.click_and_disable(i, j, self.back_matrix)
+            else:
+                self.back_matrix.matrix[i][j].click_this_box()
+                self.matrix[i][j].setEnabled(False)
+
             number_matrix = matrix_creation(n, m)
             visible_matrix = matrix_creation(n, m)
             flag_matrix = matrix_creation(n, m)
@@ -294,9 +288,15 @@ class Ui_Game(object):
                         number_matrix[a][b] = box.number
                         visible_matrix[a][b] = box.was_clicked
                         flag_matrix[a][b] = box.flag_state
-            
-            if not (is_mine(self.back_matrix.matrix[i][j])):
-                self.set_visible_perimeter(i, j, self.back_matrix, visible_matrix)
+
+            # if not (is_mine(self.back_matrix.matrix[i][j])):
+            #     self.set_visible_perimeter(i,
+            #                                j,
+            #                                self.back_matrix,
+            #                                visible_matrix
+            #                                )
+
+            print(visible_matrix)
 
             self.hidden = n*m
             for a in range(n):
@@ -304,6 +304,8 @@ class Ui_Game(object):
                     if(visible_matrix[a][b]):
                         self.hidden = self.hidden - 1
 
+            print(self.hidden)
+            print(number_matrix)
 
             if(self.hidden == mines):
                 self.timer.stop()
@@ -316,27 +318,26 @@ class Ui_Game(object):
                         if(number_matrix[a][b] == -1):
                             self.matrix[a][b].setIcon(self.icon("flag"))
                             self.matrix[a][b].setEnabled(False)
+                        elif(number_matrix[a][b] == 0):
+                            self.matrix[a][b].setIcon(self.icon("0"))
+                        elif(number_matrix[a][b] == 1):
+                            self.matrix[a][b].setIcon(self.icon("1"))
+                        elif(number_matrix[a][b] == 2):
+                            self.matrix[a][b].setIcon(self.icon("2"))
+                        elif(number_matrix[a][b] == 3):
+                            self.matrix[a][b].setIcon(self.icon("3"))
+                        elif(number_matrix[a][b] == 4):
+                            self.matrix[a][b].setIcon(self.icon("4"))
+                        elif(number_matrix[a][b] == 5):
+                            self.matrix[a][b].setIcon(self.icon("5"))
+                        elif(number_matrix[a][b] == 6):
+                            self.matrix[a][b].setIcon(self.icon("6"))
+                        elif(number_matrix[a][b] == 7):
+                            self.matrix[a][b].setIcon(self.icon("7"))
+                        elif(number_matrix[a][b] == 8):
+                            self.matrix[a][b].setIcon(self.icon("8"))
 
                 self.lcd_minas.display(0)
-
-                if(number_matrix[i][j] == 0):
-                    self.matrix[i][j].setIcon(self.icon("0"))
-                elif(number_matrix[i][j] == 1):
-                    self.matrix[i][j].setIcon(self.icon("1"))
-                elif(number_matrix[i][j] == 2):
-                    self.matrix[i][j].setIcon(self.icon("2"))
-                elif(number_matrix[i][j] == 3):
-                    self.matrix[i][j].setIcon(self.icon("3"))
-                elif(number_matrix[i][j] == 4):
-                    self.matrix[i][j].setIcon(self.icon("4"))
-                elif(number_matrix[i][j] == 5):
-                    self.matrix[i][j].setIcon(self.icon("5"))
-                elif(number_matrix[i][j] == 6):
-                    self.matrix[i][j].setIcon(self.icon("6"))
-                elif(number_matrix[i][j] == 7):
-                    self.matrix[i][j].setIcon(self.icon("7"))
-                elif(number_matrix[i][j] == 8):
-                    self.matrix[i][j].setIcon(self.icon("8"))
 
                 self.win(MainWindow, bool, highscore)
 
@@ -386,19 +387,28 @@ class Ui_Game(object):
                 self.lcd_minas.display(mines)
                 self.lose(MainWindow, bool)
 
+    # def set_visible_perimeter(self, row, col, game_matrix, visible_matrix):
+    #     ''''
+    #     Gets the perimeter for a non-mine box and sets its fields visible
+    #     in the visible_matrix
+    #     '''
+    #     perimeter = get_perimeter(row, col, game_matrix)
+    #     for coordinate in perimeter:
+    #         row = coordinate[0]
+    #         col = coordinate[1]
+    #         visible_matrix[row][col] = True
+    #         game_matrix
 
-    def set_visible_perimeter(self, row, col,game_matrix, visible_matrix):
-        ''''
-        Gets the perimeter for a non-mine box and sets its fields visible
-        in the visible_matrix
-        '''
-        perimeter = get_perimeter(row, col,game_matrix)
+    def click_and_disable(self, row, col, game_matrix):
+        perimeter = get_perimeter(row, col, game_matrix)
+
+        print(perimeter)
+
         for coordinate in perimeter:
-            row = coordinate[0]
-            col = coordinate[1]
-            visible_matrix[row][col] = True
-            game_matrix
-
+            a = coordinate[0]
+            b = coordinate[1]
+            self.back_matrix.matrix[a][b].click_this_box()
+            self.matrix[a][b].setEnabled(False)
 
     def LCDEvent(self):
         '''
@@ -406,7 +416,6 @@ class Ui_Game(object):
         '''
         self.s += 1
         self.lcd_tiempo.display(self.s)
-
 
     def show_highscores_window(self):
         '''
@@ -416,7 +425,6 @@ class Ui_Game(object):
         ui = Show_highscores_dialog()
         ui.setupUi(Dialog)
         Dialog.show()
-
 
     def add_highscores_window(self):
         '''
@@ -429,7 +437,6 @@ class Ui_Game(object):
         name = ui.name
 
         return name
-
 
     def win(self, MainWindow, bool, highscore):
         '''
@@ -485,7 +492,6 @@ class Ui_Game(object):
         elif(hard):
             self.hard_reset(MainWindow, bool)
 
-
     def lose(self, MainWindow, bool):
         '''
         Manages the usecase for when the user loses
@@ -502,7 +508,6 @@ class Ui_Game(object):
         elif(hard):
             self.hard_reset(MainWindow, bool)
 
-
     def soft_reset(self, MainWindow, bool):
         '''
         Allows the user to perform a reset of the current game but with-
@@ -511,7 +516,6 @@ class Ui_Game(object):
         '''
         bool.soft_reset = True
         MainWindow.close()
-
 
     def hard_reset(self, MainWindow, bool):
         '''
@@ -526,7 +530,7 @@ def matrix_creation(n, m):
     '''
     Returns a GeneralMatrix object with size nxm
     '''
-    matrix = GeneralMatrix(n,m)
+    matrix = GeneralMatrix(n, m)
 
     return matrix
 
