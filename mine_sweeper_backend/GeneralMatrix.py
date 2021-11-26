@@ -46,10 +46,13 @@ class GeneralMatrix:
         '''
         adjacent_entity = []
         for rw in range(row - 1, row + 2):
-            if rw < 0:
-                continue
             for cl in range(col - 1, col + 2):
-                if not (cl < 0 or (cl == col and rw == row)):
+                if self.is_valid_adjacent_entity_coordinate(
+                    row,
+                    col,
+                    rw,
+                    cl
+                ):
                     try:
                         if entity_type == 'coordinates':
                             element = (rw, cl)
@@ -61,6 +64,23 @@ class GeneralMatrix:
                     except IndexError:
                         pass
         return adjacent_entity
+
+    def is_valid_adjacent_entity_coordinate(
+        self,
+        row,
+        col,
+        rw_adj,
+        cl_ajd
+    ):
+        ''''
+        Validates the coordinate of an adjecent entity with no negative 
+        index and not the same coordinates
+        '''
+        non_negative_row = rw_adj >= 0
+        non_negative_col = cl_ajd >= 0
+        are_same_coordinate = (row == rw_adj) and (col == cl_ajd)
+        is_valid = non_negative_row and non_negative_col and not are_same_coordinate
+        return is_valid
 
     def get_adjacent_elements(self, row, col):
         '''

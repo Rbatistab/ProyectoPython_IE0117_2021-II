@@ -219,7 +219,6 @@ class Ui_Game(object):
                 self.matrix[a][b].setIcon(self.icon("blank"))
                 self.matrix[a][b].setIconSize(QtCore.QSize(38, 38))
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
-                # print(a, b)
                 self.matrix[a][b].clicked.connect(
                     lambda: self.button_click(MainWindow, bool, n, m, mines)
                     )
@@ -289,23 +288,11 @@ class Ui_Game(object):
                         visible_matrix[a][b] = box.was_clicked
                         flag_matrix[a][b] = box.flag_state
 
-            # if not (is_mine(self.back_matrix.matrix[i][j])):
-            #     self.set_visible_perimeter(i,
-            #                                j,
-            #                                self.back_matrix,
-            #                                visible_matrix
-            #                                )
-
-            print(visible_matrix)
-
             self.hidden = n*m
             for a in range(n):
                 for b in range(m):
                     if(visible_matrix[a][b]):
                         self.hidden = self.hidden - 1
-
-            print(self.hidden)
-            print(number_matrix)
 
             if(self.hidden == mines):
                 self.timer.stop()
@@ -379,9 +366,6 @@ class Ui_Game(object):
                                                                     )
                                                           )
 
-            # print(number_matrix)
-            # print(visible_matrix)
-            # print(flag_matrix)
 
             if(is_mine(self.back_matrix.matrix[i][j])):
                 self.lcd_minas.display(mines)
@@ -389,8 +373,8 @@ class Ui_Game(object):
 
     # def set_visible_perimeter(self, row, col, game_matrix, visible_matrix):
     #     ''''
-    #     Gets the perimeter for a non-mine box and sets its fields visible
-    #     in the visible_matrix
+        # Gets the perimeter for a non-mine box and sets its fields visible
+        # in the visible_matrix
     #     '''
     #     perimeter = get_perimeter(row, col, game_matrix)
     #     for coordinate in perimeter:
@@ -400,9 +384,11 @@ class Ui_Game(object):
     #         game_matrix
 
     def click_and_disable(self, row, col, game_matrix):
+        '''
+        Gets the perimeter for a non-mine box and sets its fields visible
+        in the visible_matrix
+        '''
         perimeter = get_perimeter(row, col, game_matrix)
-
-        print(perimeter)
 
         for coordinate in perimeter:
             a = coordinate[0]

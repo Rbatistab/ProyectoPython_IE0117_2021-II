@@ -111,79 +111,33 @@ def get_perimeter(row, col, game_matrix, perimeter=[]):
     '''
     Returns the perimeter of a given number in the matrix
     '''
-    perimeter.append((row, col))
-    current_box = game_matrix.get_element(row, col)
+    current_box = game_matrix[row][col]
+    if is_mine(current_box):
+        return perimeter
+    if not is_in_perimeter( row, col, perimeter ):
+        perimeter.append((row, col))
     is_zero = current_box.number == 0
-    current_box.is_in_perimeter = True
     if is_zero:
-        neighbors = game_matrix.get_adjacent_coordinates_and_elements(row, col)
-        remove_repeated_neighbors(perimeter, neighbors)
-        if not neighbors:
-            return perimeter
-        split_neighbors = split_neighbors_by_zeros(neighbors)
-        not_zeroes = split_neighbors['neighbor_not_zeroes']
-        zeroes = split_neighbors['neighbor_zeroes']
-        add_not_zeros_to_perimeter(perimeter, not_zeroes)
-        process_zeroes(perimeter, zeroes, game_matrix)
+        neighbor_coordinates = game_matrix.get_adjacent_coordinates_and_elements(row, col)
+        for neighbor_coordinate in neighbor_coordinates:
+            ng_row = neighbor_coordinate[0]
+            ng_col = neighbor_coordinate[1]
+            if is_valid_neighbor(ng_row, ng_col, game_matrix, perimeter):
+                get_perimeter(ng_row, ng_col, game_matrix, perimeter)
     return perimeter
 
+def is_in_perimeter(row, col, perimeter):
+    '''
+    Returns true is this coordinate is already in the perimeter
+    '''
+    is_in_perimeter = (row, col) in perimeter
+    return is_in_perimeter
 
-def remove_repeated_neighbors(perimeter, neighbors):
+def is_valid_neighbor(row,col, game_matrix, perimeter):
     '''
-    Given a perimeter a the neighbors of a zero, it removes the ones
-    already in the perimeter
+    Validates that a neighbor is not a mine and not in perimeter
     '''
-    for neigbor in neighbors:
-        box = neigbor[2]
-        if box.is_in_perimeter:
-            neighbors.remove(neigbor)
-            continue
-
-
-def process_zeroes(perimeter, zeroes, game_matrix):
-    '''
-    Processes the zeroes in the neigborhood of a zero
-    '''
-    for zero in zeroes:
-        row = zero[0]
-        col = zero[1]
-        box = zero[2]
-        if not box.is_in_perimeter:
-            get_perimeter(row, col, game_matrix, perimeter)
-
-
-def add_not_zeros_to_perimeter(perimeter, not_zeroes):
-    '''
-    Adds non zero elements to perimeter
-    '''
-    for element in not_zeroes:
-        if not is_mine(element[2]):
-            add_coordinate_to_perimeter(element, perimeter)
-
-
-def add_coordinate_to_perimeter(neighbor, perimeter):
-    '''
-    Adds a single coordinate to the perimeter
-    '''
-    coordinate = (neighbor[0], neighbor[1])
-    perimeter.append(coordinate)
-    neighbor[2].is_in_perimeter = True
-
-
-def split_neighbors_by_zeros(neighbors):
-    '''
-    Splits neighbors as zeroes or non zeroes
-    '''
-    neighbor_zeroes = []
-    neighbor_not_zeroes = []
-    for neighbor in neighbors:
-        element = neighbor[2]
-        if not is_mine(element):
-            if element.number == 0:
-                neighbor_zeroes.append(neighbor)
-            else:
-                neighbor_not_zeroes.append(neighbor)
-    return {
-        'neighbor_zeroes': neighbor_zeroes,
-        'neighbor_not_zeroes': neighbor_not_zeroes
-    }
+    is_not_in_perimeter = not (row, col) in perimeter
+    is_not_mine = not is_mine( game_matrix[row][col] )
+    is_valid_neighbor = is_not_mine and is_not_in_perimeter
+    return is_valid_neighbor
