@@ -1,10 +1,12 @@
 class GeneralMatrix:
-    def __init__(self, rows, cols, desired_object=object):
+    def __init__(self, height, width, desired_object=object):
         '''
         This class returns a matrix with dimentions rows x cols filled
         with the desired object
         '''
-        self.matrix = self.matrix_creation(rows, cols, desired_object)
+        self.height = height
+        self.width = width
+        self.matrix = self.matrix_creation(height, width, desired_object)
 
     def matrix_creation(self, n, m, desired_object):
         '''
@@ -78,8 +80,12 @@ class GeneralMatrix:
         '''
         non_negative_row = rw_adj >= 0
         non_negative_col = cl_ajd >= 0
+        non_negative_dimensions = non_negative_row and non_negative_col
+        row_is_bounded = rw_adj < self.height
+        col_is_bounded = cl_ajd < self.width
+        dimensions_are_bounded = row_is_bounded and col_is_bounded
         are_same_coordinate = (row == rw_adj) and (col == cl_ajd)
-        is_valid = non_negative_row and non_negative_col and not are_same_coordinate
+        is_valid = non_negative_dimensions and dimensions_are_bounded and not are_same_coordinate
         return is_valid
 
     def get_adjacent_elements(self, row, col):

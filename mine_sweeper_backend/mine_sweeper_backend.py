@@ -107,24 +107,34 @@ def is_mine(element):
     return (isinstance(element, MineBox))
 
 
-def get_perimeter(row, col, game_matrix, perimeter=[]):
+def get_perimeter(row, col, game_matrix):
     '''
     Returns the perimeter of a given number in the matrix
     '''
-    current_box = game_matrix[row][col]
-    if is_mine(current_box):
-        return perimeter
-    if not is_in_perimeter( row, col, perimeter ):
-        perimeter.append((row, col))
-    is_zero = current_box.number == 0
-    if is_zero:
-        neighbor_coordinates = game_matrix.get_adjacent_coordinates_and_elements(row, col)
-        for neighbor_coordinate in neighbor_coordinates:
-            ng_row = neighbor_coordinate[0]
-            ng_col = neighbor_coordinate[1]
-            if is_valid_neighbor(ng_row, ng_col, game_matrix, perimeter):
-                get_perimeter(ng_row, ng_col, game_matrix, perimeter)
+    pending_review = [ (row, col) ]
+    perimeter = []
+    while ( [] != pending_review):
+        for coordinate in pending_review:
+            if coordinate not in perimeter:
+                perimeter.append(coordinate)
+            pending_review.remove(coordinate)
+            if ( 0 == game_matrix[row][col].number ):
+                add_valid_neigbors(game_matrix, coordinate,pending_review,perimeter)
     return perimeter
+
+
+def add_valid_neigbors(game_matrix, coordinate,pending_review,perimeter):
+    '''
+    Adds valid neigbors (non mines and bounded boxes) to pending_review list
+    '''
+    row = coordinate[0]
+    col = coordinate[1]
+    neighbor_coordinates = game_matrix.get_adjacent_coordinates(row, col)
+    for neighbor in neighbor_coordinates:
+        ng_row = neighbor[0]
+        ng_col = neighbor[1]
+        if is_valid_neighbor(ng_row, ng_col, game_matrix, perimeter):
+            pending_review.append( neighbor )
 
 def is_in_perimeter(row, col, perimeter):
     '''
@@ -137,6 +147,8 @@ def is_valid_neighbor(row,col, game_matrix, perimeter):
     '''
     Validates that a neighbor is not a mine and not in perimeter
     '''
+    print(row)
+    print(col)
     is_not_in_perimeter = not (row, col) in perimeter
     is_not_mine = not is_mine( game_matrix[row][col] )
     is_valid_neighbor = is_not_mine and is_not_in_perimeter
