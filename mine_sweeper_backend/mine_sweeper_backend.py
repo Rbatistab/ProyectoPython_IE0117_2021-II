@@ -4,6 +4,7 @@ import random
 from mine_sweeper_backend.GeneralMatrix import GeneralMatrix as GeneralMatrix
 from mine_sweeper_backend.BoxClasses import MineBox as MineBox
 from mine_sweeper_backend.BoxClasses import NumberBox as NumberBox
+# from time import sleep
 
 
 def get_game_matrix(rows, cols, mines):
@@ -107,23 +108,53 @@ def is_mine(element):
     return (isinstance(element, MineBox))
 
 
+# def get_perimeter(row, col, game_matrix):
+#     '''
+#     Returns the perimeter of a given number in the matrix
+#     '''
+#     pending_review = [(row, col)]
+#     perimeter = []
+#     while ([] != pending_review):
+#         for coordinate in pending_review:
+#             if coordinate not in perimeter:
+#                 perimeter.append(coordinate)
+#             pending_review.remove(coordinate)
+#             if (0 == game_matrix[row][col].number):
+#                 add_valid_neigbors(game_matrix,
+#                                    coordinate,
+#                                    pending_review,
+#                                    perimeter
+#                                    )
+#     return perimeter
+
+
 def get_perimeter(row, col, game_matrix):
     '''
     Returns the perimeter of a given number in the matrix
     '''
-    pending_review = [ (row, col) ]
+    pending_review = [(row, col)]
     perimeter = []
-    while ( [] != pending_review):
-        for coordinate in pending_review:
-            if coordinate not in perimeter:
-                perimeter.append(coordinate)
-            pending_review.remove(coordinate)
-            if ( 0 == game_matrix[row][col].number ):
-                add_valid_neigbors(game_matrix, coordinate,pending_review,perimeter)
+    while ([] != pending_review):
+        coordinate = pending_review[0]
+        if coordinate not in perimeter:
+            perimeter.append(coordinate)
+        pending_review.remove(coordinate)
+        current_row = coordinate[0]
+        current_col = coordinate[1]
+        # print(game_matrix[current_row][current_col].number)
+        if (0 == game_matrix[current_row][current_col].number):
+            add_valid_neigbors(game_matrix,
+                               coordinate,
+                               pending_review,
+                               perimeter
+                               )
+        # print(pending_review)
+        # sleep(1)
+
     return perimeter
 
 
-def add_valid_neigbors(game_matrix, coordinate,pending_review,perimeter):
+def add_valid_neigbors(game_matrix, coordinate, pending_review, perimeter):
     '''
     Adds valid neigbors (non mines and bounded boxes) to pending_review list
     '''
@@ -134,7 +165,10 @@ def add_valid_neigbors(game_matrix, coordinate,pending_review,perimeter):
         ng_row = neighbor[0]
         ng_col = neighbor[1]
         if is_valid_neighbor(ng_row, ng_col, game_matrix, perimeter):
-            pending_review.append( neighbor )
+            if (neighbor not in perimeter and
+                    neighbor not in pending_review):
+                pending_review.append(neighbor)
+
 
 def is_in_perimeter(row, col, perimeter):
     '''
@@ -143,13 +177,14 @@ def is_in_perimeter(row, col, perimeter):
     is_in_perimeter = (row, col) in perimeter
     return is_in_perimeter
 
-def is_valid_neighbor(row,col, game_matrix, perimeter):
+
+def is_valid_neighbor(row, col, game_matrix, perimeter):
     '''
     Validates that a neighbor is not a mine and not in perimeter
     '''
-    print(row)
-    print(col)
+    # print(row)
+    # print(col)
     is_not_in_perimeter = not (row, col) in perimeter
-    is_not_mine = not is_mine( game_matrix[row][col] )
+    is_not_mine = not is_mine(game_matrix[row][col])
     is_valid_neighbor = is_not_mine and is_not_in_perimeter
     return is_valid_neighbor

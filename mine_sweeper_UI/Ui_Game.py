@@ -366,7 +366,6 @@ class Ui_Game(object):
                                                                     )
                                                           )
 
-
             if(is_mine(self.back_matrix.matrix[i][j])):
                 self.lcd_minas.display(mines)
                 self.lose(MainWindow, bool)
@@ -389,6 +388,8 @@ class Ui_Game(object):
         in the visible_matrix
         '''
         perimeter = get_perimeter(row, col, game_matrix)
+
+        # print(perimeter)
 
         for coordinate in perimeter:
             a = coordinate[0]

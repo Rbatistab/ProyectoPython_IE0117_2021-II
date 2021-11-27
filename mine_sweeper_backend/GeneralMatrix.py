@@ -75,7 +75,7 @@ class GeneralMatrix:
         cl_ajd
     ):
         ''''
-        Validates the coordinate of an adjecent entity with no negative 
+        Validates the coordinate of an adjecent entity with no negative
         index and not the same coordinates
         '''
         non_negative_row = rw_adj >= 0
@@ -85,7 +85,10 @@ class GeneralMatrix:
         col_is_bounded = cl_ajd < self.width
         dimensions_are_bounded = row_is_bounded and col_is_bounded
         are_same_coordinate = (row == rw_adj) and (col == cl_ajd)
-        is_valid = non_negative_dimensions and dimensions_are_bounded and not are_same_coordinate
+        is_valid = (non_negative_dimensions and
+                    dimensions_are_bounded and not
+                    are_same_coordinate
+                    )
         return is_valid
 
     def get_adjacent_elements(self, row, col):
