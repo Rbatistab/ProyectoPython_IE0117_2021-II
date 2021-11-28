@@ -253,10 +253,6 @@ class Ui_Game(object):
                 box.set_flag_state("no_flag_state")
             self.lcd_minas.display(mines - self.flag_number)
         else:
-            if(flag_state == "flag_state"):
-                box.set_flag_state("no_flag_state")
-                self.flag_number = self.flag_number - 1
-
             self.click_number = self.click_number + 1
 
             if(not is_mine(self.back_matrix.matrix[i][j])):
@@ -394,7 +390,14 @@ class Ui_Game(object):
         for coordinate in perimeter:
             a = coordinate[0]
             b = coordinate[1]
-            self.back_matrix.matrix[a][b].click_this_box()
+
+            box = self.back_matrix.matrix[a][b]
+            flag_state = box.flag_state
+
+            if(flag_state == "flag_state"):
+                box.set_flag_state("no_flag_state")
+                self.flag_number = self.flag_number - 1
+            box.click_this_box()
             self.matrix[a][b].setEnabled(False)
 
     def LCDEvent(self):
