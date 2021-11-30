@@ -11,25 +11,25 @@ Instrucciones de uso:
 Para jugar buscaminas se debe entar al directorio principal, ` ProyectoPython_IE0117_2021-II` y correr:
 
 ```
-$ python minesweeper_controller.py 
+$ python minesweeper_controller.py
 ```
 
 
 
 Con esto se levanta una ventana que solicita la cantidad de filas y columnas de la matriz del juego, luego otra ventana para elegir la cantidad de minas.
 
-Un vez elegidas estas se muestra el juego, consistente de `n` filas y `m` columnas en las que todos los elementos son casillas ocultas, para hacer visible una casilla debe darle un click izquierdo a la casilla deseada:
+Una vez elegidas estas se muestra el juego, consistente de `n` filas y `m` columnas en las que todos los elementos son casillas ocultas, para hacer visible una casilla debe darle un click izquierdo a la casilla deseada:
 
 * Si es una mina, explotan y pierde el juego
-* Si no es una mina se muestra un bloque (de una casilla o mas), en las que cada casilla visible tiene un numero con la cantidad de minas que tiene las casillas inmediatamnte adjacentes (arriba, abajo, izquierda, derecha y diagonales).
-* Si una casilla no tiene numero, quiere decir que no tiene minas en las casillas contiguas
+* Si no es una mina se muestra un bloque (de una casilla o más), en las que cada casilla visible tiene un número con la cantidad de minas que tiene las casillas inmediatamnte adjacentes (arriba, abajo, izquierda, derecha y diagonales).
+* Si una casilla no tiene número, quiere decir que no tiene minas en las casillas contiguas
 
-Cabe la opcion de poner una marca:
+Cabe la opción de poner una marca:
 
 * Una **bandera** para indicar una mina sobre una casilla (no es obligatorio para ganar el juego)
 * Un **signo de pregunta** para poner un signo de pregunta (esta es para ayudarse en caso de duda, pero no tiene efecto en el juego)
 
-Para poner una marca se debe marca el ***"check"*** que dice Etiquetar casilla ocula, al darle un click derecho se muestra una **bandera**, con otro click derecho adicional se coloca un **signo de pregunta**, y con uno mas regresa a su estado original sin marca. Esto sucede ciclicamente cada 3 clicks izquierdos.
+Para poner una marca se debe marcar el ***"check"*** que dice Etiquetar casilla oculta, al darle un click izquierdo se muestra una **bandera**, con otro click izquierdo adicional se coloca un **signo de pregunta**, y con uno más regresa a su estado original sin marca. Esto sucede ciíclicamente cada 3 clicks izquierdos.
 
 ### ¿Cómo se gana el juego?
 
