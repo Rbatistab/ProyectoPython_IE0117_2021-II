@@ -1,6 +1,5 @@
 import sys
 from mine_sweeper_backend.mine_sweeper_backend import get_game_matrix
-
 from PyQt5 import QtWidgets
 from mine_sweeper_UI.Ui_Dimensions import Ui_Dimensions
 from mine_sweeper_UI.Ui_Mines import Ui_Mines
@@ -15,7 +14,6 @@ class GameMainWindow(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         if(not self.bool.soft_reset and not self.bool.full_reset):
             self.bool.close = True
-            # raise ms_exceptions.TerminateMineSweeper
 
 
 # ------------------------- Windows ------------------------------------------
@@ -70,7 +68,7 @@ def game_window(n, m, mines, bool):
 def dimensions_mines():
     '''
     A window is presented that asks for dimensions, then, those dimen-
-    sions are validated. If there's an error the window asks again. The 
+    sions are validated. If there's an error the window asks again. The
     dimensions n and m are saved
     '''
     n, m = dim_window()

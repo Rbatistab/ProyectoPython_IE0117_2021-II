@@ -214,8 +214,6 @@ class Ui_Game(object):
                 self.matrix[a][b] = grid_button(self.centralwidget)
                 self.matrix[a][b].setObjectName("OK_Button{}{}".format(a, b))
                 self.matrix[a][b].position = [a, b]
-                # self.matrix[a][b].setFont(font)
-                # self.matrix[a][b].setText("")
                 self.matrix[a][b].setIcon(self.icon("blank"))
                 self.matrix[a][b].setIconSize(QtCore.QSize(38, 38))
                 self.gridLayout.addWidget(self.matrix[a][b], a, b, 1, 1)
@@ -226,7 +224,7 @@ class Ui_Game(object):
     def button_click(self, MainWindow, bool, n, m, mines):
         '''
         Adds the functionality of the click of a button, contemplating
-        it's usecases
+        its usecases
         '''
         rbt = MainWindow.sender()
         i = rbt.position[0]
@@ -366,26 +364,12 @@ class Ui_Game(object):
                 self.lcd_minas.display(mines)
                 self.lose(MainWindow, bool)
 
-    # def set_visible_perimeter(self, row, col, game_matrix, visible_matrix):
-    #     ''''
-        # Gets the perimeter for a non-mine box and sets its fields visible
-        # in the visible_matrix
-    #     '''
-    #     perimeter = get_perimeter(row, col, game_matrix)
-    #     for coordinate in perimeter:
-    #         row = coordinate[0]
-    #         col = coordinate[1]
-    #         visible_matrix[row][col] = True
-    #         game_matrix
-
     def click_and_disable(self, row, col, game_matrix):
         '''
         Gets the perimeter for a non-mine box and sets its fields visible
         in the visible_matrix
         '''
         perimeter = get_perimeter(row, col, game_matrix)
-
-        # print(perimeter)
 
         for coordinate in perimeter:
             a = coordinate[0]
@@ -523,18 +507,3 @@ def matrix_creation(n, m):
     matrix = GeneralMatrix(n, m)
 
     return matrix
-
-# ----------------------- Mock ups to delete-----------------------------------
-
-# def highcore_add_show(self):
-#     name = self.add_highscores_window()
-#     highscore = 0.1
-#     highscores_location = "highcores.txt"
-#     names_location = "highcores_names.txt"
-#     file = open(names_location, "a")
-#     file.write("{}\n".format(name))
-#     file.close()
-#     file = open(highscores_location, "a")
-#     file.write("{}\n".format(highscore))
-#     file.close()
-#     self.show_highscores_window()
